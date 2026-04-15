@@ -1,0 +1,107 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# dependencies
+node_modules/
+backend-b/node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+# testing
+/coverage
+test-results/
+playwright-report/
+.playwright/
+# next.js
+/.next/
+/out/
+# production
+/build
+dist/
+backend-b/dist/
+# misc
+.DS_Store
+*.pem
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.tmp-*.log
+.tmp-*.err.log
+.tmp-ha/
+backend-run.log
+backend-b/.tmp-*.log
+backend-b/.tmp-*.err.log
+# local env files
+.env
+.env.*
+.env*.local
+env.local
+!.env.example
+server/.env
+backend-b/.env
+backend-b/.env.*
+backend-b/.env.local
+!backend-b/.env.example
+.admin_token_tmp
+
+# local credentials / secrets
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.secret
+secrets/
+**/secrets/
+serviceAccountKey*.json
+service-account*.json
+firebase-adminsdk-*.json
+credentials*.json
+**/.credentials/
+**/.aws/
+**/.azure/
+**/.gcloud/
+# vercel
+.vercel
+
+# deployment/workspace local metadata
+.railway/
+.firebase/
+firebase-debug.log*
+.cursor/
+.idea/
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# managed
+**.data.json
+**.node-persist**
+**_IGNORE_**
+server/sessions/
+backend-b/.data/
+# end managed
+
+# generated tutorials/ads (binary / large)
+docs/ads/
+docs/ads-assets/
+docs/instagram/
+docs/tutorial-*/
+video/public/slides/
+video/public/ui/
+video/public/broll/
+video/public/ads-v2-availability.json
+video/out/
+video/.cache/
+video/.remotion/
+video/.env
+video/.env.*
+!video/.env.example
+
+# docs (generated exports; see scripts/generate-*.mjs)
+docs/tutorial-criar-conta/
+docs/tutorial-stories-conexao-ia/
+
+# tutorial asset generation (local auth state + raw screenshots)
+scripts/.auth/
+scripts/tmp/
+docs/tutorial-assets/

@@ -1,0 +1,180 @@
+{
+  "generatedAt": "2026-02-06T21:13:34.666Z",
+  "siteUrl": "https://auto-whats.vercel.app/",
+  "mode": {
+    "headless": true,
+    "waitForScan": false
+  },
+  "capture": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 2,
+    "crop": {
+      "width": 1280,
+      "height": 720
+    },
+    "webp": {
+      "width": 1280,
+      "height": 720,
+      "quality": 82
+    }
+  },
+  "assets": {
+    "conexoes-qr-mascarado.webp": {
+      "raw": "docs/tutorial-assets/raw/conexoes-qr-mascarado.png",
+      "note": "QR visible (masked)",
+      "clip": {
+        "x": 0,
+        "y": 80,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.3125,
+        "y": 0.16111111111111112,
+        "w": 0.3375,
+        "h": 0.6777777777777778
+      },
+      "qrRect": {
+        "x": 0.3875,
+        "y": 0.3277777777777778,
+        "w": 0.1875,
+        "h": 0.3333333333333333
+      }
+    },
+    "conversas-ia-global.webp": {
+      "raw": "docs/tutorial-assets/raw/conversas-ia-global.png",
+      "note": "IA Global card",
+      "clip": {
+        "x": 0,
+        "y": 80,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.46796875,
+        "y": 0.14930555555555555,
+        "w": 0.034375,
+        "h": 0.03333333333333333
+      },
+      "qrRect": null
+    },
+    "treinamento-modelo.webp": {
+      "raw": "docs/tutorial-assets/raw/treinamento-modelo.png",
+      "note": "Modelo de IA card",
+      "clip": {
+        "x": 160,
+        "y": 80,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.4044189453125,
+        "y": 0.30694444444444446,
+        "w": 0.26614990234375,
+        "h": 0.11388888888888889
+      },
+      "qrRect": null
+    },
+    "treinamento-toggles.webp": {
+      "raw": "docs/tutorial-assets/raw/treinamento-toggles.png",
+      "note": "Toggles section",
+      "clip": {
+        "x": 0,
+        "y": 180,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.46510009765625,
+        "y": 0.6958333333333333,
+        "w": 0.034375,
+        "h": 0.03333333333333333
+      },
+      "qrRect": null
+    },
+    "treinamento-campos.webp": {
+      "raw": "docs/tutorial-assets/raw/treinamento-campos.png",
+      "note": "Campos de treinamento (preenchidos sem salvar)",
+      "clip": {
+        "x": 160,
+        "y": 180,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.12578125,
+        "y": 0.5569444444444445,
+        "w": 0.8234375,
+        "h": 0.06111111111111111
+      },
+      "qrRect": null
+    },
+    "leads-lista.webp": {
+      "raw": "docs/tutorial-assets/raw/leads-lista.png",
+      "note": "Leads lista",
+      "clip": {
+        "x": 160,
+        "y": 180,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": null,
+      "qrRect": null
+    },
+    "leads-sugestoes.webp": {
+      "raw": "docs/tutorial-assets/raw/leads-sugestoes.png",
+      "note": "Leads sugestoes IA",
+      "clip": {
+        "x": 160,
+        "y": 80,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.7558837890625,
+        "y": 0.3680555555555556,
+        "w": 0.09771728515625,
+        "h": 0.06111111111111111
+      },
+      "qrRect": null
+    },
+    "clientes-lista.webp": {
+      "raw": "docs/tutorial-assets/raw/clientes-lista.png",
+      "note": "Clientes lista",
+      "clip": {
+        "x": 160,
+        "y": 144,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": null,
+      "qrRect": null
+    },
+    "billing-visao-geral.webp": {
+      "raw": "docs/tutorial-assets/raw/billing-visao-geral.png",
+      "note": "Billing overview",
+      "clip": {
+        "x": 160,
+        "y": 95,
+        "width": 1280,
+        "height": 720
+      },
+      "highlight": {
+        "x": 0.1,
+        "y": 0.24861111111111112,
+        "w": 0.2046875,
+        "h": 0.5027777777777778
+      },
+      "qrRect": null
+    }
+  },
+  "auth": {
+    "reusedStorageState": false,
+    "storageStatePath": "scripts/.auth/tutorial-storage.json",
+    "emailSet": true
+  },
+  "durationMs": 79284
+}

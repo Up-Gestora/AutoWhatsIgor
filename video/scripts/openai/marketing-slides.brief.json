@@ -1,0 +1,403 @@
+{
+  "deck_title": "Apresentacao Comercial - AutoWhats",
+  "deck_subtitle": "Automacao de WhatsApp com IA para gerar mais resultado com previsibilidade",
+  "language": "pt-BR",
+  "slides": [
+    {
+      "key": "cover",
+      "title": "AutoWhats: atendimento no WhatsApp com IA que converte mais",
+      "objective": "Abrir a apresentacao com posicionamento forte e proposta de valor clara.",
+      "message": "AutoWhats automatiza o primeiro atendimento, acelera respostas e aumenta conversao sem perder controle.",
+      "bullets": [
+        "Setup rapido para PMEs em poucos minutos",
+        "Respostas consistentes com regras do negocio",
+        "Painel unico com conversas, leads e operacao"
+      ],
+      "cta": "Quero testar no meu negocio",
+      "theme_hint": "premium saas, dark elegante, destaque em verde da marca",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Logo principal da AutoWhats"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/signup.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Tela real do produto para credibilidade visual"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-01.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Background de apoio"
+        }
+      ]
+    },
+    {
+      "key": "problem",
+      "title": "O gargalo atual do atendimento",
+      "objective": "Evidenciar dor de negocio e custo da demora no atendimento.",
+      "message": "Empresas perdem vendas todos os dias por resposta lenta e follow-up sem padrao.",
+      "bullets": [
+        "Leads esfriam sem retorno rapido",
+        "Equipe presa em perguntas repetitivas",
+        "Sem visibilidade clara do funil comercial"
+      ],
+      "cta": "Reduzir tempo de resposta agora",
+      "theme_hint": "problema com contraste alto e atmosfera de urgencia",
+      "references": [
+        {
+          "path": "docs/ads-assets/v2/ui/crops/ia-global-on.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Painel real reforcando contexto operacional"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-02.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Textura abstrata para fundo"
+        }
+      ]
+    },
+    {
+      "key": "solution",
+      "title": "A solucao AutoWhats",
+      "objective": "Apresentar pilares da solucao com clareza executiva.",
+      "message": "AutoWhats combina IA treinavel, controle operacional e foco em conversao comercial.",
+      "bullets": [
+        "IA treinada no contexto do seu negocio",
+        "Escalada para humano no momento certo",
+        "Gestao de leads e conversas no mesmo painel"
+      ],
+      "cta": "Ver AutoWhats em acao",
+      "theme_hint": "layout de prova e solucao, premium B2B",
+      "references": [
+        {
+          "path": "public/brand/logo-icon.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Icone da marca para reforco visual"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/conexoes-gerar-qr.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Exemplo de tela real do produto"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-chat-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Iconografia de chat"
+        }
+      ]
+    },
+    {
+      "key": "how-it-works",
+      "title": "Como funciona na pratica",
+      "objective": "Mostrar caminho simples de implantacao para reduzir friccao de compra.",
+      "message": "Com poucos passos, a operacao entra em producao e evolui com dados reais.",
+      "bullets": [
+        "Conecte o WhatsApp via QR Code",
+        "Treine a IA com regras e contexto",
+        "Ative e otimize com dados do funil"
+      ],
+      "cta": "Iniciar implantacao assistida",
+      "theme_hint": "fluxo visual com timeline e elementos de produto",
+      "references": [
+        {
+          "path": "docs/ads-assets/v2/ui/crops/conexoes-gerar-qr.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Passo de conexao"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/conexoes-qr-masked.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Tela com QR mascarado"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-qr-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Apoio visual para etapa de conexao"
+        }
+      ]
+    },
+    {
+      "key": "features",
+      "title": "Funcionalidades para vender e atender melhor",
+      "objective": "Dar visao objetiva de recursos que sustentam escala.",
+      "message": "O produto foi desenhado para operacoes com volume alto de conversa no WhatsApp.",
+      "bullets": [
+        "CRM nativo com status de leads",
+        "IA global e controle por conversa",
+        "Sugestoes de follow-up com contexto"
+      ],
+      "cta": "Explorar recursos principais",
+      "theme_hint": "masonry de features com cartoes e hierarquia visual forte",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Marca em destaque"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/ia-global-on.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Painel com IA global"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-chat-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de apoio para comunicacao"
+        }
+      ]
+    },
+    {
+      "key": "results",
+      "title": "Resultado operacional esperado",
+      "objective": "Demonstrar impacto de performance com linguagem comercial.",
+      "message": "Mais velocidade, consistencia e previsibilidade no atendimento e no follow-up.",
+      "bullets": [
+        "Queda relevante no tempo de resposta inicial",
+        "Aumento de capacidade sem crescer equipe no mesmo ritmo",
+        "Melhor cobertura de follow-up e conversao"
+      ],
+      "cta": "Validar resultados no seu funil",
+      "theme_hint": "dashboard de indicadores com visual executivo",
+      "references": [
+        {
+          "path": "public/brand/logo-icon.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Elemento de marca"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-03.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Background de alta energia"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-clock-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de velocidade e tempo"
+        }
+      ]
+    },
+    {
+      "key": "use-cases",
+      "title": "Casos de uso por tipo de negocio",
+      "objective": "Reforcar aplicabilidade em diferentes segmentos.",
+      "message": "AutoWhats adapta automacao e atendimento para multiplos cenarios comerciais.",
+      "bullets": [
+        "Clinicas e servicos",
+        "E-commerce e varejo",
+        "SaaS, educacao e consultoria"
+      ],
+      "cta": "Aplicar no meu segmento",
+      "theme_hint": "grid de casos, linguagem visual versatil e consistente",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Uso da marca para consistencia"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-chat-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de conversa"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-qr-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de conexao"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-clock-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de agilidade"
+        }
+      ]
+    },
+    {
+      "key": "pricing",
+      "title": "Planos e investimento",
+      "objective": "Apresentar proposta comercial com chamada para teste.",
+      "message": "Comece simples, valide resultado e escale conforme a operacao cresce.",
+      "bullets": [
+        "Modelo SaaS com opcoes de evolucao",
+        "Entrada com baixo atrito para PMEs",
+        "Teste gratuito para validacao inicial"
+      ],
+      "cta": "Iniciar teste gratuito",
+      "theme_hint": "pricing spotlight com contraste e foco em decisao",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Marca no slide de oferta"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/signup.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Tela de entrada para reforcar CTA"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-02.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Background de apoio"
+        }
+      ]
+    },
+    {
+      "key": "roi",
+      "title": "ROI e payback",
+      "objective": "Conectar ganho operacional com retorno financeiro.",
+      "message": "Reducao de atraso e melhoria de follow-up tendem a elevar receita incremental.",
+      "bullets": [
+        "Mais oportunidades aproveitadas",
+        "Menos ociosidade comercial",
+        "Projeto orientado a retorno em curto prazo"
+      ],
+      "cta": "Calcular ROI no meu cenario",
+      "theme_hint": "slide financeiro com narrativa antes e depois",
+      "references": [
+        {
+          "path": "public/brand/logo-icon.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Identidade visual de apoio"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/ia-global-on.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Produto em operacao como prova contextual"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-01.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Background para grafismo"
+        }
+      ]
+    },
+    {
+      "key": "objections",
+      "title": "Objecoes comuns e respostas",
+      "objective": "Reduzir friccao comercial antes da decisao final.",
+      "message": "As duvidas principais sobre IA, controle e implantacao ja estao cobertas no produto.",
+      "bullets": [
+        "IA nao substitui equipe, acelera triagem",
+        "Controle total de contexto e comportamento",
+        "Entrada em operacao no mesmo dia"
+      ],
+      "cta": "Tirar duvidas com especialista",
+      "theme_hint": "comparativo claro, confianca e transparencia",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Marca para manter consistencia"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/signup.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Tela real reforcando simplicidade de inicio"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-chat-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Icone de atendimento"
+        }
+      ]
+    },
+    {
+      "key": "onboarding",
+      "title": "Plano de implantacao",
+      "objective": "Mostrar roteiro de go-live com risco controlado.",
+      "message": "Onboarding orientado por etapas para ativar rapido e evoluir com seguranca.",
+      "bullets": [
+        "Conexao e configuracao inicial",
+        "Treinamento com regras e ofertas",
+        "Rodada assistida e escala gradual"
+      ],
+      "cta": "Agendar onboarding",
+      "theme_hint": "timeline objetivo, visual limpo e operacional",
+      "references": [
+        {
+          "path": "public/brand/logo-icon.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Icone de marca para fechamento do roadmap"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/conexoes-gerar-qr.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Etapa de conexao no onboarding"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/icon-qr-3d.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Apoio visual para conexao"
+        }
+      ]
+    },
+    {
+      "key": "final-cta",
+      "title": "Proximo passo: ativar teste e medir resultado",
+      "objective": "Fechar a apresentacao com chamada de acao forte.",
+      "message": "Entre em teste, rode em ambiente real e decida com dados de performance.",
+      "bullets": [
+        "Conecte seu WhatsApp",
+        "Ative atendimento com IA",
+        "Compare indicadores antes e depois"
+      ],
+      "cta": "Ativar teste gratis agora",
+      "theme_hint": "encerramento forte, aspiracional e orientado a acao",
+      "references": [
+        {
+          "path": "public/brand/logo-mark.png",
+          "kind": "logo",
+          "critical": true,
+          "note": "Marca no fechamento"
+        },
+        {
+          "path": "docs/ads-assets/v2/ui/crops/signup.png",
+          "kind": "ui",
+          "critical": true,
+          "note": "Tela de conversao"
+        },
+        {
+          "path": "docs/ads-assets/v2/broll/images/bg-abstract-03.png",
+          "kind": "broll",
+          "critical": false,
+          "note": "Background final de impacto"
+        }
+      ]
+    }
+  ]
+}

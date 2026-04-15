@@ -1,0 +1,29 @@
+{
+  "name": "autowhats-video",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "sync-slides": "node scripts/sync-slides.mjs",
+    "render:all": "node scripts/render-all.mjs",
+    "sync:v2": "node scripts/sync-assets-v2.mjs",
+    "render:v2": "node scripts/render-v2.mjs",
+    "render:vsl": "node scripts/render-vsl.mjs",
+    "generate:marketing-slides": "node scripts/openai/generate-marketing-slides.mjs",
+    "generate:youtube-sora": "node scripts/openai/generate-youtube-ad-12s.mjs",
+    "studio": "npx remotion studio src/index.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.419",
+    "@remotion/google-fonts": "4.0.419",
+    "@remotion/transitions": "4.0.419",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "4.0.419"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}

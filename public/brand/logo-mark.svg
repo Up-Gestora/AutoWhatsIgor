@@ -1,0 +1,32 @@
+<svg
+  width="40"
+  height="40"
+  viewBox="0 0 40 40"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="AutoWhats logo"
+>
+  <defs>
+    <!-- Matches .gradient-primary in app/globals.css -->
+    <linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#25D366" />
+      <stop offset="1" stop-color="#128C7E" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="40" height="40" rx="12" fill="url(#g)" />
+
+  <!-- lucide-react MessageCircle icon (24x24) centered inside the mark -->
+  <g transform="translate(8 8)">
+    <path
+      d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+      fill="none"
+      stroke="#0B141A"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+</svg>
+

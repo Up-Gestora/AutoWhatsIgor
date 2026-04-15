@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "AutoWhats"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "connections": "Conexões",
+    "conversations": "Conversas",
+    "training": "Treinamento IA",
+    "leads": "Leads",
+    "clients": "Clientes",
+    "broadcasts": "Transmissão",
+    "calendar": "Agenda",
+    "billing": "Financeiro",
+    "files": "Arquivos",
+    "settings": "Configurações",
+    "tutorials": "Tutoriais",
+    "updates": "Atualizações",
+    "logout": "Sair",
+    "expand": "Expandir Menu",
+    "collapse": "Recolher Menu",
+    "keepOpen": "Manter aberto",
+    "inDevelopment": "Em desenvolvimento",
+    "subaccount": "Sub-conta"
+  },
+  "topbar": {
+    "search": "Buscar...",
+    "development": "Em desenvolvimento",
+    "loading": "Carregando...",
+    "noName": "Sem nome",
+    "current": "Atual",
+    "planLoading": "Plano ...",
+    "planPro": "Plano Pro",
+    "planFree": "Plano Free",
+    "titles": {
+      "dashboard_home": "Visao Geral",
+      "connections": "Minhas Conexões",
+      "training": "Treinamento de IA",
+      "onboarding_setup": "Onboarding Guiado",
+      "training_copilot": "Treinar com IA",
+      "conversations": "Histórico de Conversas",
+      "leads": "Gerenciamento de Leads",
+      "files": "Arquivos",
+      "settings": "Configurações do Sistema",
+      "tutorials": "Tutoriais",
+      "clients": "Clientes",
+      "broadcasts": "Transmissão",
+      "calendar": "Agenda",
+      "billing": "Financeiro",
+      "updates": "Atualizações"
+    }
+  },
+  "login": {
+    "titleLogin": "Acesse sua conta",
+    "titleSignup": "Crie sua conta",
+    "titleForgot": "Recupere sua senha",
+    "descLogin": "Gerencie sua IA de atendimento",
+    "descSignup": "Comece a automatizar hoje mesmo",
+    "descForgot": "Enviaremos um link para o seu email",
+    "backHome": "Voltar para Home",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "submitLogin": "Entrar",
+    "submitSignup": "Criar Conta",
+    "submitForgot": "Enviar Link",
+    "orContinueWith": "Ou continue com",
+    "noAccount": "Não tem uma conta?",
+    "createNow": "Crie uma agora",
+    "hasAccount": "Já tem uma conta?",
+    "loginNow": "Faça login",
+    "footerRights": "Todos os direitos reservados.",
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Esconder senha",
+    "help": {
+      "sending": "Enviando ajuda...",
+      "cta": "Precisa de ajuda para criar sua conta?"
+    },
+    "errors": {
+      "firebaseMissing": "Configuração do Firebase ausente. Verifique seu arquivo .env.local",
+      "passwordMismatch": "As senhas não coincidem.",
+      "whatsappRequired": "O WhatsApp é obrigatório.",
+      "emailInUse": "Este email já esta sendo usado.",
+      "invalidCredential": "Email ou senha invalidos.",
+      "userNotFound": "Usuário não encontrado.",
+      "generic": "Ocorreu um erro. Tente novamente.",
+      "google": "Erro ao entrar com Google."
+    },
+    "success": {
+      "resetSent": "Link de recuperacao enviado para o seu email!"
+    }
+  },
+  "dashboard": {
+    "hello": "Olá, {name}! 👋",
+    "helloFallback": "Olá! 👋",
+    "subtitle": "Aqui esta o que esta acontecendo com suas automacoes hoje.",
+    "blockedTitle": "IA desativada por falta de créditos",
+    "blockedDescriptionStart": "Seu saldo esta zerado.",
+    "blockedDescriptionLink": "Recarregue os créditos",
+    "blockedDescriptionEnd": "para voltar a responder automaticamente."
+  },
+  "language": {
+    "label": "Idioma",
+    "portuguese": "Portugues (Brasil)",
+    "english": "English"
+  }
+}
+
+
+
+

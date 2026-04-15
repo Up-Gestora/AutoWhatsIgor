@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper para verificar se o usuario e admin (safe quando o doc nao existe).
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Regras para a colecao de usuarios
+    match /users/{userId} {
+      // Usuario pode ler o proprio perfil.
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Usuario pode criar o proprio perfil, sem se promover e sem criar sub-conta por self-signup.
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && (request.resource.data.role == null || request.resource.data.role == 'user')
+                    && (request.resource.data.accountType == null || request.resource.data.accountType == 'main')
+                    && (request.resource.data.ownerUid == null || request.resource.data.ownerUid == userId);
+
+      // Usuario pode atualizar o proprio perfil, mas campos de seguranca sao imutaveis.
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.role == resource.data.role
+                    && request.resource.data.accountType == resource.data.accountType
+                    && request.resource.data.ownerUid == resource.data.ownerUid;
+
+      // Mantem compatibilidade com o comportamento atual (self delete permitido).
+      allow delete: if request.auth != null && request.auth.uid == userId;
+
+      // Admin tem acesso total.
+      allow read, write: if isAdmin();
+
+      // Regra para subcolecoes do usuario (como settings/ai_training).
+      match /{allPaths=**} {
+        allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
+      }
+    }
+
+    // Regra especifica para a colecao de leads
+    match /leads/{leadId} {
+      // Permite criar um novo lead (publico) se campos obrigatorios estiverem presentes.
+      allow create: if request.resource.data.email != null
+                   && request.resource.data.name != null;
+
+      // Admin pode gerenciar os leads.
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Regras para configuracoes globais do sistema
+    match /settings/{settingId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

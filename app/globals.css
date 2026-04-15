@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0D1117;
+  --foreground: #E6EDF3;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161B22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484F58;
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #0D1117 0%, #0A1628 50%, #0D1117 100%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #25D366 0%, #34E879 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.3);
+}
+
+.glow-primary-hover:hover {
+  box-shadow: 0 0 40px rgba(37, 211, 102, 0.5);
+}
+
+/* Animation delays for staggered effects */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(37, 211, 102, 0.15);
+}
+
+/* Offscreen container used for high-fidelity PDF export */
+.marketing-export-root {
+  position: fixed;
+  left: -220vw;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: max-content;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.marketing-export-slide {
+  width: 1600px;
+  height: 900px;
+  flex: none;
+}
+
+/* Admin marketing print fallback mode */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body[data-marketing-print='1'] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body[data-marketing-print='1'] * {
+    visibility: hidden !important;
+  }
+
+  body[data-marketing-print='1'] #marketing-print-root,
+  body[data-marketing-print='1'] #marketing-print-root * {
+    visibility: visible !important;
+  }
+
+  body[data-marketing-print='1'] #marketing-print-root {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: auto !important;
+    background: transparent !important;
+  }
+
+  body[data-marketing-print='1'] #marketing-print-root .marketing-export-slide {
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  body[data-marketing-print='1'] #marketing-print-root .marketing-export-slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  body[data-marketing-print='1'] .no-print {
+    display: none !important;
+  }
+}
+

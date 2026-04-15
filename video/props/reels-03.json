@@ -1,0 +1,27 @@
+{
+  "variantId": "reels-03",
+  "hook": {
+    "line1": "Tráfego pago no Whats?",
+    "line2": "Conecte via QR e ligue a IA em 1 clique",
+    "sub": "Mais velocidade. Mais conversão."
+  },
+  "cta": {
+    "primary": "Teste gratuitamente",
+    "url": "auto-whats.vercel.app"
+  },
+  "slides": [
+    "slides/01.png",
+    "slides/05.png",
+    "slides/06.png",
+    "slides/07.png",
+    "slides/08.png",
+    "slides/09.png",
+    "slides/10.png"
+  ],
+  "theme": {
+    "bg": "#0D1117",
+    "primary": "#25D366",
+    "accent": "#128C7E"
+  }
+}
+

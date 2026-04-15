@@ -1,0 +1,85 @@
+{
+  "variantId": "vsl-01",
+  "hook": {
+    "kicker": "VSL",
+    "line1": "Conecte o WhatsApp",
+    "line2": "e automatize em minutos",
+    "sub": "Setup simples + CRM + follow-up com IA"
+  },
+  "cta": {
+    "primary": "Teste gratuitamente",
+    "url": "auto-whats.vercel.app"
+  },
+  "content": {
+    "connection": {
+      "kicker": "Conexão",
+      "title": "Conexão via QR Code",
+      "subtitle": "Gere no painel e escaneie no celular.",
+      "steps": [
+        "Gerar QR no painel",
+        "Escanear no WhatsApp",
+        "Sessão conectada"
+      ]
+    },
+    "training": {
+      "kicker": "Treinamento",
+      "title": "Treine a IA do seu jeito",
+      "subtitle": "Defina modelo, tom e orientações.",
+      "points": [
+        "Personalize respostas",
+        "Use seu FAQ",
+        "Controle total"
+      ]
+    },
+    "crm": {
+      "kicker": "CRM",
+      "title": "Leads viram clientes",
+      "subtitle": "Organize o funil e acompanhe cada contato.",
+      "points": [
+        "Pipeline por status",
+        "Próximo contato",
+        "Observações e tags"
+      ]
+    },
+    "followup": {
+      "kicker": "Follow-up",
+      "title": "Follow-up com IA, editável",
+      "subtitle": "Rascunho pronto para revisar e enviar.",
+      "points": [
+        "Rascunho automático",
+        "Você aprova",
+        "Sem repetição"
+      ]
+    },
+    "summary": {
+      "title": "Tudo em um só lugar",
+      "items": [
+        {
+          "title": "Conexão simples",
+          "subtitle": "QR Code oficial em minutos."
+        },
+        {
+          "title": "IA treinável",
+          "subtitle": "Respostas no tom da sua marca."
+        },
+        {
+          "title": "CRM inteligente",
+          "subtitle": "Leads, follow-up e conversão."
+        }
+      ]
+    }
+  },
+  "theme": {
+    "bg": "#0D1117",
+    "primary": "#25D366",
+    "accent": "#128C7E"
+  },
+  "assets": {
+    "ui": {
+      "conexoesQrMasked": "ui/conexoes-qr-masked.png",
+      "treinamentoModelo": "ui/treinamento-modelo.png",
+      "crmLeads": "ui/crm-leads.png",
+      "followupModal": "ui/followup-modal.png"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "email": "autowhats.audit.manual.pt+2026-03-10T00-51-28-441Z@example.com",
+  "whatsapp": "5500000000015",
+  "notes": [
+    "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input').filter({ hasNot: locator('[disabled]') }).first()\u001b[22m\n\u001b[2m    - locator resolved to <input disabled placeholder=\"Buscar...\" title=\"Buscar... (Em desenvolvimento)\" aria-label=\"Buscar... (Em desenvolvimento)\" class=\"flex w-full rounded-lg border px-4 py-2 text-foreground placeholder:text-gray-500 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 pl-9 h-9 bg-surface-light border-surface-lighter text-xs\"/>\u001b[22m\n\u001b[2m    - fill(\"Oficina Norte\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  ],
+  "finalUrl": "https://auto-whats.vercel.app/pt/dashboard/onboarding"
+}

@@ -1,0 +1,21 @@
+{
+  "targetFiles": [
+    "app/login/page.tsx",
+    "app/dashboard/layout-client.tsx",
+    "components/dashboard/sidebar.tsx",
+    "components/dashboard/topbar.tsx"
+  ],
+  "entries": [
+    "app/dashboard/layout-client.tsx::Focused setup shell",
+    "app/dashboard/layout-client.tsx::Hidden onboarding",
+    "app/dashboard/layout-client.tsx::Onboarding oculto",
+    "app/dashboard/layout-client.tsx::Shell focado de configuração",
+    "app/login/page.tsx::Auto",
+    "app/login/page.tsx::AutoWhats.",
+    "app/login/page.tsx::Google",
+    "app/login/page.tsx::Whats",
+    "components/dashboard/sidebar.tsx::Auto",
+    "components/dashboard/sidebar.tsx::AutoWhats",
+    "components/dashboard/sidebar.tsx::Whats"
+  ]
+}

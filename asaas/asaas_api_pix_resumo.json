@@ -1,0 +1,439 @@
+{
+  "meta": {
+    "generated_at_utc": "2026-01-20T14:29:43Z",
+    "focus": "Integração inicial com a API do Asaas focando em recebimento de cobranças via PIX (QR Code dinâmico).",
+    "api_version": "v3",
+    "primary_docs": [
+      {
+        "title": "Comece por aqui",
+        "url": "https://docs.asaas.com/reference/comece-por-aqui"
+      },
+      {
+        "title": "Guia PIX",
+        "url": "https://docs.asaas.com/docs/pix"
+      },
+      {
+        "title": "Cobranças via PIX / QR Code dinâmico",
+        "url": "https://docs.asaas.com/docs/cobrancas-via-pix"
+      },
+      {
+        "title": "Autenticação",
+        "url": "https://docs.asaas.com/docs/autenticação-1"
+      },
+      {
+        "title": "Códigos HTTP das respostas",
+        "url": "https://docs.asaas.com/reference/codigos-http-das-respostas.md"
+      },
+      {
+        "title": "Limites da API (rate & quota)",
+        "url": "https://docs.asaas.com/reference/rate-e-quota-limit.md"
+      },
+      {
+        "title": "Sandbox",
+        "url": "https://docs.asaas.com/docs/sandbox"
+      },
+      {
+        "title": "Criar novo cliente (endpoint)",
+        "url": "https://docs.asaas.com/reference/criar-novo-cliente.md"
+      },
+      {
+        "title": "Criar nova cobrança (endpoint)",
+        "url": "https://docs.asaas.com/reference/criar-nova-cobranca.md"
+      },
+      {
+        "title": "Obter QR Code para pagamentos via Pix (endpoint)",
+        "url": "https://docs.asaas.com/reference/get-qr-code-for-pix-payments.md"
+      },
+      {
+        "title": "Recuperar uma única cobrança (endpoint)",
+        "url": "https://docs.asaas.com/reference/recuperar-uma-unica-cobranca.md"
+      },
+      {
+        "title": "Webhooks - visão geral",
+        "url": "https://docs.asaas.com/docs/sobre-os-webhooks"
+      },
+      {
+        "title": "Criar novo webhook (endpoint)",
+        "url": "https://docs.asaas.com/reference/create-new-webhook.md"
+      },
+      {
+        "title": "Eventos para cobranças",
+        "url": "https://docs.asaas.com/docs/webhook-para-cobrancas"
+      }
+    ]
+  },
+  "environments": {
+    "sandbox": {
+      "base_url": "https://api-sandbox.asaas.com/v3",
+      "notes": [
+        "A documentação interativa aponta para Sandbox; para testar nela, use uma API Key de Sandbox.",
+        "Sandbox é separado de produção (dados e configurações não são replicados)."
+      ]
+    },
+    "production": {
+      "base_url": "https://api.asaas.com/v3"
+    }
+  },
+  "authentication": {
+    "type": "API Key via header",
+    "required_headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "nome_da_sua_aplicação (obrigatório para contas raiz criadas a partir de 13/06/2024)",
+      "access_token": "sua_api_key"
+    },
+    "environment_key_prefixes": {
+      "production": "$aact_prod_...",
+      "sandbox": "$aact_hmlg_..."
+    },
+    "security_notes": [
+      "Considere usar mecanismos adicionais de segurança como whitelist de IPs no Asaas.",
+      "Guarde a API Key em um cofre/secret manager e nunca no código-fonte."
+    ],
+    "transport": {
+      "tls_supported": [
+        "1.2",
+        "1.3"
+      ],
+      "recommended": "TLS 1.3"
+    }
+  },
+  "http_errors": {
+    "general_behavior": {
+      "2xx": "Sucesso",
+      "4xx": "Erros de validação/negócio ou autenticação/autorização",
+      "5xx": "Erro interno no Asaas"
+    },
+    "common_codes": [
+      {
+        "code": 200,
+        "meaning": "OK"
+      },
+      {
+        "code": 400,
+        "meaning": "Bad Request (parâmetro obrigatório ausente/inválido; resposta indica o problema)"
+      },
+      {
+        "code": 401,
+        "meaning": "Unauthorized (API Key ausente ou inválida)"
+      },
+      {
+        "code": 403,
+        "meaning": "Forbidden (requisição não autorizada; abuso; parâmetros não permitidos; IP bloqueado; ou GET com body)"
+      },
+      {
+        "code": 404,
+        "meaning": "Not Found (endpoint/objeto não existe ou pertence a outra conta)"
+      },
+      {
+        "code": 429,
+        "meaning": "Too Many Requests (rate/quota/concurrency)"
+      },
+      {
+        "code": 500,
+        "meaning": "Internal Server Error"
+      }
+    ],
+    "error_body_shape": {
+      "errors": [
+        {
+          "code": "invalid_value",
+          "description": "Descrição do erro"
+        }
+      ]
+    }
+  },
+  "rate_limits": {
+    "rate_limit_headers": {
+      "RateLimit-Limit": "limite de requisições no intervalo",
+      "RateLimit-Remaining": "quantas requisições restam",
+      "RateLimit-Reset": "segundos para reset do limite"
+    },
+    "quota_limit": {
+      "window_hours": 12,
+      "max_requests_per_account": 25000,
+      "notes": [
+        "A cota é por conta e independe do endpoint acessado.",
+        "O contador inicia na primeira requisição e reinicia após 12h."
+      ]
+    },
+    "concurrent_get_limit": {
+      "max_concurrent_get_requests": 50,
+      "notes": [
+        "Concorrência é enviar novas requisições GET antes de receber resposta das anteriores."
+      ]
+    },
+    "abuse_blocking": {
+      "notes": [
+        "Em excesso, o Asaas pode bloquear temporariamente o IP; verifique o cabeçalho RateLimit-Reset quando isso ocorrer."
+      ]
+    }
+  },
+  "sandbox_notes": {
+    "what_it_is": "Ambiente de testes para receber cobranças fictícias e testar integrações e Webhooks.",
+    "differences": [
+      "Contas são aprovadas automaticamente (envio de qualquer imagem como documento no fluxo).",
+      "É possível confirmar pagamento de boleto com um clique e o saldo cai na conta.",
+      "Notificações por e-mail/SMS funcionam normalmente: evite usar e-mails/celulares reais de terceiros ou números aleatórios."
+    ],
+    "urls": {
+      "sandbox_account_signup": "https://sandbox.asaas.com/",
+      "api_sandbox_base": "https://api-sandbox.asaas.com"
+    }
+  },
+  "core_entities": {
+    "customer": {
+      "endpoint": {
+        "method": "POST",
+        "path": "/customers",
+        "full_url_sandbox": "https://api-sandbox.asaas.com/v3/customers"
+      },
+      "required_fields": [
+        "name",
+        "cpfCnpj"
+      ],
+      "use_in_flow": "Você precisa do customer.id retornado para criar uma cobrança (payment).",
+      "notes": [
+        "O sistema permite clientes duplicados; se quiser evitar, valide no seu lado antes de criar.",
+        "Se enviar postalCode, não precisa enviar city/province/address (o Asaas completa pelo CEP)."
+      ]
+    },
+    "payment": {
+      "create_pix_payment": {
+        "endpoint": {
+          "method": "POST",
+          "path": "/payments",
+          "full_url_sandbox": "https://api-sandbox.asaas.com/v3/payments"
+        },
+        "required_fields": [
+          "customer",
+          "billingType",
+          "value",
+          "dueDate"
+        ],
+        "pix_specific": {
+          "billingType_value": "PIX",
+          "notes": [
+            "Não é possível criar uma cobrança com dois billingTypes diferentes (ex.: PIX e CREDIT_CARD).",
+            "Em cobranças Pix para pessoas físicas, o status CONFIRMED pode aparecer em caso de bloqueio cautelar/análise de prevenção; o prazo máximo informado é de 72h (depois vira RECEIVED ou REFUNDED)."
+          ]
+        },
+        "common_optional_fields": [
+          "description",
+          "externalReference",
+          "discount",
+          "interest",
+          "fine"
+        ]
+      },
+      "retrieve_payment": {
+        "endpoint": {
+          "method": "GET",
+          "path": "/payments/{id}"
+        },
+        "pix_related_fields_in_response": [
+          "billingType",
+          "status",
+          "pixTransaction",
+          "pixQrCodeId"
+        ],
+        "polling_warning": "Evite polling (muitos GETs sucessivos); prefira Webhooks para mudança de status."
+      },
+      "list_payments_filters_examples": [
+        "GET /payments?customer={customer_id}",
+        "GET /payments?billingType=PIX",
+        "GET /payments?status=RECEIVED",
+        "GET /payments?status=RECEIVED&billingType=PIX",
+        "GET /payments?dateCreated[ge]=YYYY-MM-DD&dateCreated[le]=YYYY-MM-DD",
+        "GET /payments?dueDate[ge]=YYYY-MM-DD&dueDate[le]=YYYY-MM-DD"
+      ],
+      "pix_qr_code": {
+        "endpoint": {
+          "method": "GET",
+          "path": "/payments/{id}/pixQrCode"
+        },
+        "response_fields": [
+          "encodedImage",
+          "payload",
+          "expirationDate",
+          "description"
+        ],
+        "notes": [
+          "encodedImage vem como base64 (imagem do QR Code).",
+          "payload é o 'copia e cola' do Pix.",
+          "Há menção de geração de QR dinâmico sem chave Pix cadastrada; o QR pode ser pago até 23:59 do mesmo dia e, se a cobrança for atualizada, é necessário obter um novo QR Code. Essa funcionalidade poderá ser descontinuada com aviso prévio."
+        ]
+      }
+    },
+    "webhooks": {
+      "overview": {
+        "purpose": "Receber eventos automaticamente via POST quando algo acontece (ex.: pagamento recebido).",
+        "delivery": "At least once (pode haver eventos duplicados).",
+        "max_urls": 10,
+        "best_practices": [
+          "Implemente idempotência (guarde IDs de eventos processados e ignore duplicados).",
+          "Processe eventos de forma assíncrona (fila) e responda rápido com 2xx.",
+          "Opcionalmente configure authToken; o Asaas envia esse token no header `asaas-access-token`."
+        ],
+        "queue_behavior": {
+          "failures_before_pause": 15,
+          "events_retention_days": 14,
+          "reactivation": "Reative a fila (na interface) ou via API atualizando o webhook com `interrupted=false`."
+        }
+      },
+      "create_webhook_via_api": {
+        "endpoint": {
+          "method": "POST",
+          "path": "/webhooks",
+          "full_url_sandbox": "https://api-sandbox.asaas.com/v3/webhooks"
+        },
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "name": "enabled",
+            "type": "boolean"
+          },
+          {
+            "name": "interrupted",
+            "type": "boolean"
+          },
+          {
+            "name": "apiVersion",
+            "type": "integer",
+            "example": 3
+          },
+          {
+            "name": "authToken",
+            "type": "string",
+            "description": "Token opcional; será enviado no header `asaas-access-token` nas notificações"
+          },
+          {
+            "name": "sendType",
+            "type": "enum",
+            "values": [
+              "NON_SEQUENTIALLY",
+              "SEQUENTIALLY"
+            ]
+          },
+          {
+            "name": "events",
+            "type": "string[]"
+          }
+        ],
+        "recommended_events_for_pix_charges": [
+          "PAYMENT_CREATED",
+          "PAYMENT_UPDATED",
+          "PAYMENT_CONFIRMED",
+          "PAYMENT_RECEIVED",
+          "PAYMENT_OVERDUE",
+          "PAYMENT_REFUNDED",
+          "PAYMENT_DELETED",
+          "PAYMENT_RESTORED"
+        ]
+      }
+    },
+    "pix_module": {
+      "what_it_is": "Além do fluxo de 'Cobranças' (payments) com billingType=PIX, existe um grupo 'Pix' na API para gestão de chave Pix e QR Code estático.",
+      "reference_endpoints_from_menu": [
+        "POST /pix/addressKeys (criar uma chave)",
+        "GET /pix/addressKeys (listar chaves)",
+        "GET /pix/addressKeys/{id} (recuperar uma chave)",
+        "DELETE /pix/addressKeys/{id} (remover chave)",
+        "POST /pix/qrCodes/static (criar QR Code estático)",
+        "DELETE /pix/qrCodes/static/{id} (deletar QR Code estático)"
+      ],
+      "note": "Para começar recebendo cobranças Pix com QR dinâmico, normalmente basta usar /payments com billingType=PIX + /payments/{id}/pixQrCode."
+    }
+  },
+  "pix_charge_flow_starter": {
+    "goal": "Criar uma cobrança Pix e exibir QR Code (imagem e/ou copia-e-cola), confirmando o pagamento por Webhook.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Criar cliente (Customer)",
+        "call": {
+          "method": "POST",
+          "path": "/customers"
+        },
+        "store": [
+          "customer.id"
+        ]
+      },
+      {
+        "step": 2,
+        "title": "Criar cobrança Pix (Payment)",
+        "call": {
+          "method": "POST",
+          "path": "/payments"
+        },
+        "request_minimal": {
+          "customer": "cus_xxx",
+          "billingType": "PIX",
+          "value": 10.0,
+          "dueDate": "YYYY-MM-DD",
+          "description": "Opcional"
+        },
+        "store": [
+          "payment.id",
+          "payment.status",
+          "payment.invoiceUrl (se usar)"
+        ]
+      },
+      {
+        "step": 3,
+        "title": "Obter QR Code Pix",
+        "call": {
+          "method": "GET",
+          "path": "/payments/{id}/pixQrCode"
+        },
+        "use": [
+          "encodedImage (base64) para renderizar imagem no front-end",
+          "payload (copia e cola) para botão 'Copiar'"
+        ],
+        "notes": [
+          "Respeite expirationDate; se expirar, regenere/atualize a cobrança e recapture o QR."
+        ]
+      },
+      {
+        "step": 4,
+        "title": "Confirmar pagamento via Webhook",
+        "call": {
+          "method": "POST (recebido do Asaas)",
+          "path": "seu endpoint de webhook"
+        },
+        "watch_for_events": [
+          "PAYMENT_CONFIRMED",
+          "PAYMENT_RECEIVED",
+          "PAYMENT_REFUNDED"
+        ],
+        "idempotency": "Armazene o ID do evento e ignore duplicados."
+      }
+    ]
+  },
+  "implementation_checklist": [
+    "Criar conta Sandbox e gerar API Key de Sandbox.",
+    "Configurar variáveis de ambiente: ASAAS_BASE_URL (sandbox/prod), ASAAS_API_KEY.",
+    "Criar cliente (POST /customers) e salvar o customer.id no seu banco.",
+    "Criar cobrança Pix (POST /payments) com billingType=PIX.",
+    "Gerar QR Code (GET /payments/{id}/pixQrCode) e entregar ao front-end (imagem + copia-e-cola).",
+    "Criar Webhook (POST /webhooks) e assinar eventos de cobrança/pagamento (PAYMENT_RECEIVED/CONFIRMED etc.).",
+    "Implementar idempotência no endpoint de webhook; processar e responder 2xx rapidamente.",
+    "Tratar erros 400/401/403/429; registrar logs; respeitar rate limits e quota.",
+    "Ao ir para produção: trocar base URL e API Key (prefixo $aact_prod_), e revisar whitelist de IPs se habilitada."
+  ],
+  "examples": {
+    "curl_create_customer": "curl -X POST \"$ASAAS_BASE_URL/customers\" -H \"Content-Type: application/json\" -H \"User-Agent: MinhaApp/1.0\" -H \"access_token: $ASAAS_API_KEY\" -d '{\"name\":\"John Doe\",\"cpfCnpj\":\"24971563792\",\"email\":\"john.doe@exemplo.com\"}'",
+    "curl_create_pix_payment": "curl -X POST \"$ASAAS_BASE_URL/payments\" -H \"Content-Type: application/json\" -H \"User-Agent: MinhaApp/1.0\" -H \"access_token: $ASAAS_API_KEY\" -d '{\"customer\":\"cus_xxx\",\"billingType\":\"PIX\",\"value\":10.00,\"dueDate\":\"2026-01-31\",\"description\":\"Pedido 123\"}'",
+    "curl_get_pix_qr": "curl -X GET \"$ASAAS_BASE_URL/payments/pay_xxx/pixQrCode\" -H \"Content-Type: application/json\" -H \"User-Agent: MinhaApp/1.0\" -H \"access_token: $ASAAS_API_KEY\""
+  }
+}

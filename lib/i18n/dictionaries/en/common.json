@@ -1,0 +1,109 @@
+{
+  "app": {
+    "name": "AutoWhats"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "connections": "Connections",
+    "conversations": "Conversations",
+    "training": "AI Training",
+    "leads": "Leads",
+    "clients": "Clients",
+    "broadcasts": "Broadcasts",
+    "calendar": "Calendar",
+    "billing": "Billing",
+    "files": "Files",
+    "settings": "Settings",
+    "tutorials": "Tutorials",
+    "updates": "Updates",
+    "logout": "Sign out",
+    "expand": "Expand Menu",
+    "collapse": "Collapse Menu",
+    "keepOpen": "Keep open",
+    "inDevelopment": "In development",
+    "subaccount": "Sub-account"
+  },
+  "topbar": {
+    "search": "Search...",
+    "development": "In development",
+    "loading": "Loading...",
+    "noName": "No name",
+    "current": "Current",
+    "planLoading": "Plan ...",
+    "planPro": "Pro Plan",
+    "planFree": "Free Plan",
+    "titles": {
+      "dashboard_home": "Overview",
+      "connections": "My Connections",
+      "training": "AI Training",
+      "onboarding_setup": "Guided Onboarding",
+      "training_copilot": "Train with AI",
+      "conversations": "Conversation History",
+      "leads": "Lead Management",
+      "files": "Files",
+      "settings": "System Settings",
+      "tutorials": "Tutorials",
+      "clients": "Clients",
+      "broadcasts": "Broadcasts",
+      "calendar": "Calendar",
+      "billing": "Billing",
+      "updates": "Updates"
+    }
+  },
+  "login": {
+    "titleLogin": "Access your account",
+    "titleSignup": "Create your account",
+    "titleForgot": "Recover your password",
+    "descLogin": "Manage your AI support assistant",
+    "descSignup": "Start automating today",
+    "descForgot": "We will send a reset link to your email",
+    "backHome": "Back to Home",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot your password?",
+    "submitLogin": "Sign in",
+    "submitSignup": "Create Account",
+    "submitForgot": "Send Link",
+    "orContinueWith": "Or continue with",
+    "noAccount": "Don't have an account?",
+    "createNow": "Create one now",
+    "hasAccount": "Already have an account?",
+    "loginNow": "Sign in",
+    "footerRights": "All rights reserved.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "help": {
+      "sending": "Sending help...",
+      "cta": "Need help creating your account?"
+    },
+    "errors": {
+      "firebaseMissing": "Firebase configuration is missing. Check your .env.local file",
+      "passwordMismatch": "Passwords do not match.",
+      "whatsappRequired": "WhatsApp is required.",
+      "emailInUse": "This email is already in use.",
+      "invalidCredential": "Invalid email or password.",
+      "userNotFound": "User not found.",
+      "generic": "An error occurred. Please try again.",
+      "google": "Error while signing in with Google."
+    },
+    "success": {
+      "resetSent": "Password reset link sent to your email!"
+    }
+  },
+  "dashboard": {
+    "hello": "Hello, {name}! 👋",
+    "helloFallback": "Hello! 👋",
+    "subtitle": "Here's what is happening with your automations today.",
+    "blockedTitle": "AI disabled due to missing credits",
+    "blockedDescriptionStart": "Your balance is zero.",
+    "blockedDescriptionLink": "Top up credits",
+    "blockedDescriptionEnd": "to enable automatic replies again."
+  },
+  "language": {
+    "label": "Language",
+    "portuguese": "Portuguese (Brazil)",
+    "english": "English"
+  }
+}

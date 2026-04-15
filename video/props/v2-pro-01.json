@@ -1,0 +1,57 @@
+{
+  "variantId": "pro-01",
+  "script": "A",
+  "hook": {
+    "line1": "IA personalizável",
+    "line2": "para seu nicho",
+    "sub": "Atenda rápido no WhatsApp e converta mais."
+  },
+  "cta": {
+    "primary": "Teste gratuitamente",
+    "url": "auto-whats.vercel.app"
+  },
+  "content": {
+    "hookLabel": "IA personalizável",
+    "chat": {
+      "leadText": "Oi! Tem horário hoje?",
+      "aiText": "Tenho sim 😊 Qual período você prefere?"
+    },
+    "niches": ["Dentistas", "Salões", "Personal", "Psicólogas"],
+    "statBadge": {
+      "value": "+20%",
+      "label": "conversão",
+      "footnote": "*Resultados variam"
+    }
+  },
+  "theme": {
+    "bg": "#0D1117",
+    "primary": "#25D366",
+    "accent": "#128C7E"
+  },
+  "assets": {
+    "ui": {
+      "signup": "ui/signup.png",
+      "conexoesGerarQr": "ui/conexoes-gerar-qr.png",
+      "conexoesQrMasked": "ui/conexoes-qr-masked.png",
+      "conectadoMasked": "ui/conectado-masked.png",
+      "iaGlobalOn": "ui/ia-global-on.png",
+      "treinamentoModelo": "ui/treinamento-modelo.png"
+    },
+    "broll": {
+      "images": {
+        "bg1": "broll/images/bg-abstract-01.png",
+        "bg2": "broll/images/bg-abstract-02.png",
+        "bg3": "broll/images/bg-abstract-03.png",
+        "iconChat": "broll/images/icon-chat-3d.png",
+        "iconQr": "broll/images/icon-qr-3d.png",
+        "iconClock": "broll/images/icon-clock-3d.png"
+      },
+      "videos": {
+        "hook": "broll/videos/broll-clock-loop.mp4",
+        "motion": "broll/videos/broll-chat-float.mp4",
+        "qr": "broll/videos/broll-qr-scan.mp4",
+        "clock": "broll/videos/broll-clock-loop.mp4"
+      }
+    }
+  }
+}

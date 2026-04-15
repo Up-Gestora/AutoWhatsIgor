@@ -1,0 +1,56 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { resolveBackendUrl, getBackendAdminKey } from '@/lib/adminBackend'
+import { resolveSessionId } from '@/lib/userBackend'
+
+export const runtime = 'nodejs'
+
+export async function GET(request: NextRequest) {
+  const sessionIdParam = request.nextUrl.searchParams.get('sessionId')
+  const auth = await resolveSessionId(request, sessionIdParam)
+  if (auth instanceof NextResponse) {
+    return auth
+  }
+
+  const backendUrl = resolveBackendUrl()
+  const adminKey = getBackendAdminKey()
+  if (!backendUrl) {
+    return NextResponse.json({ error: 'backend_url_missing' }, { status: 500 })
+  }
+  if (!adminKey) {
+    return NextResponse.json({ error: 'backend_admin_key_missing' }, { status: 500 })
+  }
+
+  const query = new URLSearchParams()
+  const targetType = request.nextUrl.searchParams.get('targetType')
+  const status = request.nextUrl.searchParams.get('status')
+  const limit = request.nextUrl.searchParams.get('limit')
+
+  if (targetType) {
+    query.set('targetType', targetType)
+  }
+  if (status) {
+    query.set('status', status)
+  }
+  if (limit) {
+    query.set('limit', limit)
+  }
+
+  const response = await fetch(
+    `${backendUrl}/sessions/${encodeURIComponent(auth.sessionId)}/ai-suggestions${query.toString() ? `?${query}` : ''}`,
+    {
+      headers: {
+        'x-admin-key': adminKey
+      },
+      cache: 'no-store'
+    }
+  )
+
+  const payload = await response.json().catch(() => null)
+  if (!response.ok) {
+    const error = payload?.error ? String(payload.error) : 'backend_request_failed'
+    return NextResponse.json({ error }, { status: 502 })
+  }
+
+  return NextResponse.json(payload)
+}
+

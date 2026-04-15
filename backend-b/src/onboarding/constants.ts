@@ -1,0 +1,1 @@
+export const ONBOARDING_DRAFT_MAX_STEP = 5

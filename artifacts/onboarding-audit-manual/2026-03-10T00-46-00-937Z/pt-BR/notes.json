@@ -1,0 +1,8 @@
+{
+  "email": "autowhats.audit.manual.pt+2026-03-10T00-46-00-937Z@example.com",
+  "whatsapp": "5500000000009",
+  "notes": [
+    "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('label').filter({ hasText: /Hor?rios|Business hours/i }).locator('..').locator('textarea')\u001b[22m\n"
+  ],
+  "finalUrl": "https://auto-whats.vercel.app/pt/dashboard/onboarding"
+}
