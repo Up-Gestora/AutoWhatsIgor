@@ -158,7 +158,7 @@ export function Sidebar({
           isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         )}
       >
-        <div className="h-16 flex items-center px-4 border-b border-surface-lighter shrink-0">
+        <div className="dashboard-sidebar-brand h-16 flex items-center px-4 border-b border-surface-lighter shrink-0">
           <div className="flex items-center gap-3 overflow-hidden">
             <div className="min-w-[40px] h-10 rounded-xl gradient-primary flex items-center justify-center shrink-0">
               <MessageCircle className="w-6 h-6 text-black" />
@@ -232,7 +232,7 @@ export function Sidebar({
           })}
 
 
-          <div className="pt-2 mt-2 border-t border-surface-lighter space-y-2">
+          <div className="dashboard-sidebar-footer pt-2 mt-2 border-t border-surface-lighter space-y-2">
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
               className={cn(

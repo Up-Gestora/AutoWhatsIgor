@@ -167,7 +167,7 @@ export function Topbar({
   }, [isLocaleMenuOpen])
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 min-w-0 items-center justify-between border-b border-surface-lighter bg-surface/80 px-4 backdrop-blur-md md:px-8">
+    <header className="dashboard-topbar sticky top-0 z-30 flex h-16 min-w-0 items-center justify-between border-b border-surface-lighter bg-surface/80 px-4 backdrop-blur-md md:px-8">
       <div className="flex min-w-0 items-center gap-4">
         <button onClick={onMenuClick} className="p-2 text-gray-400 hover:text-white md:hidden">
           <Menu className="w-6 h-6" />
@@ -199,7 +199,7 @@ export function Topbar({
           </span>
         </div>
 
-        <div className="hidden md:flex items-center gap-2 rounded-xl border border-surface-lighter bg-surface-light/90 px-2.5 py-1.5">
+        <div className="hidden md:flex items-center gap-2 rounded-xl border border-surface-lighter bg-surface-light px-2.5 py-1.5">
           <Languages className="h-4 w-4 text-gray-400" />
           <div
             ref={localeMenuRef}
@@ -214,7 +214,7 @@ export function Topbar({
               aria-expanded={isLocaleMenuOpen}
               aria-label={t('language.label', 'Idioma')}
               onClick={() => setIsLocaleMenuOpen((prev) => !prev)}
-              className="flex h-7 w-full items-center justify-between rounded-lg border border-surface-lighter/70 bg-surface px-2.5 text-xs font-medium text-gray-100 transition-colors hover:border-primary/40"
+              className="flex h-7 w-full items-center justify-between rounded-lg border border-surface-lighter bg-surface px-2.5 text-xs font-medium text-white transition-colors hover:border-primary/40"
             >
               <span className="truncate">
                 {localePrefix === 'en'

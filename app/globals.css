@@ -49,6 +49,19 @@ html[data-theme='light'] .text-gray-500 {
   color: #64748B !important;
 }
 
+html[data-theme='light'] .dashboard-topbar {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-color: #CBD5E1 !important;
+}
+
+html[data-theme='light'] .dashboard-sidebar-brand {
+  border-bottom-width: 0 !important;
+}
+
+html[data-theme='light'] .dashboard-sidebar-footer {
+  border-top-width: 0 !important;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
