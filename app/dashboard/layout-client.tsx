@@ -4,8 +4,10 @@ import { useCallback, useEffect, useState } from 'react'
 import { Sidebar } from '@/components/dashboard/sidebar'
 import { Topbar } from '@/components/dashboard/topbar'
 import { WhatsAppModal } from '@/components/dashboard/whatsapp-modal'
+import { WhatsAppFloat } from '@/components/whatsapp-float'
+import { GamifiedOnboardingBar } from '@/components/onboarding/gamified-onboarding-bar'
 import { useAuth } from '@/providers/auth-provider'
-import { db } from '@/lib/firebase'
+import { db, isLocalAuthBypassEnabled } from '@/lib/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
@@ -13,10 +15,20 @@ import { useHoverCapable } from '@/lib/hooks/useHoverCapable'
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery'
 import { useI18n } from '@/lib/i18n/client'
 import { normalizeLocale, localeToPrefix } from '@/lib/i18n/locales'
-import { buildLocalizedUrl } from '@/lib/i18n/routes'
+import { buildLocalizedUrl, type RouteKey } from '@/lib/i18n/routes'
+import { parseResponsePayload } from '@/lib/http-error'
 
 type AccountType = 'main' | 'subaccount'
+type DashboardPlanTier = 'basic' | 'premium'
 const SIDEBAR_PREFERENCE_KEY = 'dashboard.sidebar.preference.v1'
+const PREMIUM_ONLY_ROUTES = new Set<RouteKey>([
+  'clients',
+  'calendar',
+  'broadcasts',
+  'broadcast_detail',
+  'files',
+  'updates'
+])
 
 export default function DashboardLayout({
   children
@@ -30,6 +42,8 @@ export default function DashboardLayout({
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false)
   const [checkingProfile, setCheckingProfile] = useState(true)
   const [accountType, setAccountType] = useState<AccountType>('main')
+  const [planTier, setPlanTier] = useState<DashboardPlanTier>('basic')
+  const [loadingPlan, setLoadingPlan] = useState(true)
   const { user, loading } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -39,6 +53,7 @@ export default function DashboardLayout({
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const hoverCapable = useHoverCapable()
   const isSubaccount = accountType === 'subaccount'
+  const localAuthBypassEnabled = isLocalAuthBypassEnabled()
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -137,7 +152,77 @@ export default function DashboardLayout({
     }
   }, [user, loading, route, localePrefix, router, searchParams, toRoute, isOnboardingSetupPage])
 
-  if (loading || (user && checkingProfile)) {
+  useEffect(() => {
+    if (loading || checkingProfile || !user?.uid) {
+      return
+    }
+
+    if (localAuthBypassEnabled || isSubaccount) {
+      setPlanTier('basic')
+      setLoadingPlan(false)
+      return
+    }
+
+    let cancelled = false
+
+    const loadPlanTier = async () => {
+      setLoadingPlan(true)
+      try {
+        const token = await user.getIdToken()
+        const response = await fetch('/api/billing/plan', {
+          headers: {
+            authorization: `Bearer ${token}`
+          },
+          cache: 'no-store'
+        })
+
+        const { payload } = await parseResponsePayload<{ plan?: string }>(response)
+        const nextTier: DashboardPlanTier =
+          response.ok && payload?.plan === 'pro' ? 'premium' : 'basic'
+
+        if (!cancelled) {
+          setPlanTier(nextTier)
+        }
+      } catch {
+        if (!cancelled) {
+          setPlanTier('basic')
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingPlan(false)
+        }
+      }
+    }
+
+    const handleFocus = () => {
+      void loadPlanTier()
+    }
+
+    void loadPlanTier()
+    window.addEventListener('focus', handleFocus)
+
+    return () => {
+      cancelled = true
+      window.removeEventListener('focus', handleFocus)
+    }
+  }, [checkingProfile, isSubaccount, loading, localAuthBypassEnabled, user])
+
+  useEffect(() => {
+    if (loading || checkingProfile || loadingPlan || isSubaccount) {
+      return
+    }
+
+    const routeKey = route?.key
+    if (!routeKey) {
+      return
+    }
+
+    if (planTier === 'basic' && PREMIUM_ONLY_ROUTES.has(routeKey)) {
+      router.replace(toRoute('dashboard_home'))
+    }
+  }, [checkingProfile, isSubaccount, loading, loadingPlan, planTier, route?.key, router, toRoute])
+
+  if (loading || (user && (checkingProfile || (!isSubaccount && loadingPlan)))) {
     return (
       <div className="min-h-screen bg-surface flex items-center justify-center">
         <Loader2 className="w-10 h-10 text-primary animate-spin" />
@@ -158,6 +243,7 @@ export default function DashboardLayout({
           isMobileOpen={isMobileOpen}
           setIsMobileOpen={setIsMobileOpen}
           isSubaccount={isSubaccount}
+          planTier={planTier}
         />
       )}
 
@@ -184,7 +270,12 @@ export default function DashboardLayout({
             </div>
           </header>
         ) : (
-          <Topbar onMenuClick={() => setIsMobileOpen(true)} isSubaccount={isSubaccount} />
+          <Topbar
+            onMenuClick={() => setIsMobileOpen(true)}
+            isSubaccount={isSubaccount}
+            planTier={planTier}
+            planLoading={loadingPlan}
+          />
         )}
         <main
           className={`flex-1 overflow-y-auto overflow-x-hidden ${isOnboardingSetupPage ? 'p-4 md:p-6' : 'p-4 md:p-8'} ${isConversationsPage ? 'pb-0' : ''}`}
@@ -192,6 +283,10 @@ export default function DashboardLayout({
           {children}
         </main>
       </div>
+      {!isOnboardingSetupPage && !isSubaccount ? (
+        <GamifiedOnboardingBar isSubaccount={isSubaccount} />
+      ) : null}
+      {!isOnboardingSetupPage ? <WhatsAppFloat /> : null}
     </div>
   )
 }

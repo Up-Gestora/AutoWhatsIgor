@@ -106,7 +106,7 @@ export function WhatsAppFloat() {
 
   if (!isLoggedArea) {
     return (
-      <div className="fixed bottom-5 right-5 z-[70] sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-5 right-3 left-auto z-[70] sm:bottom-6 sm:right-6">
         <Link
           href={WHATSAPP_LINK}
           target="_blank"
@@ -133,7 +133,7 @@ export function WhatsAppFloat() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-[70] sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-5 right-3 left-auto z-[70] sm:bottom-6 sm:right-6">
       <div
         className={cn(
           'w-[min(92vw,360px)] rounded-2xl border border-white/15 bg-[#10151f]/95 p-4 shadow-2xl backdrop-blur',

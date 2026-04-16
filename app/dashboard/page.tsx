@@ -30,6 +30,7 @@ import { auth, db } from '@/lib/firebase'
 import { useI18n } from '@/lib/i18n/client'
 import { buildHttpErrorMessage, parseResponsePayload } from '@/lib/http-error'
 import { emitOnboardingEventSafe } from '@/lib/onboarding/events'
+import { GAMIFIED_ONBOARDING_OPEN_EVENT } from '@/lib/onboarding/gamified-ui'
 import {
   GUIDED_TUTORIAL_ORDER,
   GUIDED_TUTORIAL_ROUTE_KEYS,
@@ -639,6 +640,10 @@ export default function DashboardPage() {
     openGuidedTutorial(nextGuidedTutorialKey)
   }, [nextGuidedTutorialKey, openGuidedTutorial])
 
+  const openImplementationTrail = useCallback(() => {
+    window.dispatchEvent(new Event(GAMIFIED_ONBOARDING_OPEN_EVENT))
+  }, [])
+
   const setGuidedTutorialStatus = useCallback(
     (tutorialKey: GuidedTutorialKey, completed: boolean) => {
       if (!user?.uid) {
@@ -873,6 +878,17 @@ export default function DashboardPage() {
               onClick={startGuidedTutorial}
             >
               {tr('Continuar de onde parou', 'Continue where you left off')}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="border-primary/35 bg-primary/10 text-primary hover:bg-primary/20"
+              onClick={(event) => {
+                event.stopPropagation()
+                openImplementationTrail()
+              }}
+            >
+              {tr('Ver trilha de implementação', 'View implementation journey')}
             </Button>
             <span className="text-xs text-gray-400">
               {tr('Próximo recomendado:', 'Next recommended:')} {tr(nextGuidedTutorialCard.labelPt, nextGuidedTutorialCard.labelEn)}
