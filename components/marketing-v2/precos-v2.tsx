@@ -1,25 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Check, Clock, Sparkles } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Reveal, useInViewOnce } from '@/components/marketing-v2/reveal'
 import { trackCustom } from '@/lib/metaPixel'
-import {
-  MARKETING_PRICING_PLANS,
-  MARKETING_PRO_AI_CREDITS_TOKEN,
-  PRO_AI_CREDITS_LABEL_BY_BILLING
-} from '@/lib/marketing/pricing-catalog'
+import { MARKETING_PRICING_PLANS } from '@/lib/marketing/pricing-catalog'
 
 export function PrecosV2() {
-  const [proBilling, setProBilling] = useState<'monthly' | 'annual'>('monthly')
   const { ref, inView } = useInViewOnce<HTMLElement>({
     rootMargin: '0px 0px -25% 0px',
     threshold: 0.2
   })
-
-  const proAiCreditsLabel = PRO_AI_CREDITS_LABEL_BY_BILLING[proBilling]
 
   useEffect(() => {
     if (!inView) return
@@ -43,10 +36,14 @@ export function PrecosV2() {
               Preços para cada <span className="gradient-text">necessidade</span>
             </h2>
             <p className="text-gray-300/80 max-w-2xl mx-auto mt-3">
-              Créditos de IA conforme uso. Comece no teste grátis e evolua para o Pro quando estiver pronto.
+              Modelo pay-per-use: você adiciona créditos e paga somente o consumo da IA por mensagem enviada.
             </p>
           </div>
         </Reveal>
+
+        <div className="mb-6 rounded-2xl border border-primary/25 bg-primary/10 p-4 text-sm text-primary">
+          No plano Básico não há mensalidade fixa. No Enterprise, a mensalidade é de R$ 300,00 e a IA passa de R$ 0,15 para R$ 0,05 por mensagem.
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {MARKETING_PRICING_PLANS.map((plan, index) => (
@@ -73,53 +70,16 @@ export function PrecosV2() {
                   <p className="text-gray-300/75 text-sm mt-3">{plan.description}</p>
 
                   <div className="mt-6">
-                    {plan.id === 'pro' ? (
-                      <>
-                        <div className="text-3xl font-bold text-white">
-                          {proBilling === 'monthly' ? plan.priceMonthly : plan.priceAnnual}{' '}
-                          <span className="text-base font-medium text-gray-400">
-                            {proBilling === 'monthly' ? '/ mês' : '/ ano'}
-                          </span>
-                        </div>
-                        <div className="mt-4 inline-flex items-center gap-1 rounded-full bg-surface/60 border border-white/10 p-1">
-                          <button
-                            type="button"
-                            onClick={() => setProBilling('monthly')}
-                            className={cn(
-                              'px-4 py-1.5 text-xs font-semibold rounded-full transition-colors',
-                              proBilling === 'monthly' ? 'bg-primary text-black' : 'text-gray-300/80 hover:text-white'
-                            )}
-                            aria-pressed={proBilling === 'monthly'}
-                          >
-                            Mensal
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setProBilling('annual')}
-                            className={cn(
-                              'px-4 py-1.5 text-xs font-semibold rounded-full transition-colors',
-                              proBilling === 'annual' ? 'bg-primary text-black' : 'text-gray-300/80 hover:text-white'
-                            )}
-                            aria-pressed={proBilling === 'annual'}
-                          >
-                            Anual
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-3xl font-bold text-white">{plan.price}</div>
-                    )}
+                    <div className="text-3xl font-bold text-white">{plan.price ?? '--'}</div>
                   </div>
                 </div>
 
                 <ul className="space-y-4 mb-8 flex-1">
                   {plan.features.map((feature) => {
-                    const label = feature === MARKETING_PRO_AI_CREDITS_TOKEN ? proAiCreditsLabel : feature
-
                     return (
                       <li key={feature} className="flex items-start gap-3">
                         <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-200/90">{label}</span>
+                        <span className="text-gray-200/90">{feature}</span>
                       </li>
                     )
                   })}

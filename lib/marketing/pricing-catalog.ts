@@ -21,64 +21,62 @@ const SALES_WHATSAPP_NUMBER = '5543988462272'
 
 export const buildSalesWhatsAppLink = () =>
   `https://wa.me/${SALES_WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    'Oi, vim pelo site de vocês. Pode me enviar mais informações?'
+    'Oi, vim pela página do AutoWhats e quero falar sobre o Plano Enterprise.'
   )}`
 
 export const PRO_AI_CREDITS_LABEL_BY_BILLING = {
-  monthly: '20 reais de créditos de IA mensais',
-  annual: '25 reais de créditos de IA mensais'
+  monthly: 'R$ 20 em créditos de IA por mês',
+  annual: 'R$ 30 em créditos de IA por mês'
 } as const
 
 export const MARKETING_PRICING_PLANS: MarketingPricingPlan[] = [
   {
-    id: 'trial',
-    name: 'Teste Grátis',
-    price: 'R$ 0,00',
-    description: 'Conheça o AutoWhats sem custo ou compromisso.',
-    features: [
-      'Configure rápido',
-      'Acesso completo ao sistema',
-      'R$ 5,00 de crédito',
-      'Acesso por até 30 dias'
-    ],
-    highlighted: false,
-    ctaLabel: 'Teste grátis',
-    ctaHref: '/login?mode=signup',
-    footnote: 'Crie conta e comece agora.'
-  },
-  {
     id: 'pro',
-    name: 'Pro',
-    priceMonthly: 'R$ 100,00',
-    priceAnnual: 'R$ 600,00',
-    description: 'Para empresas que recebem 20-500 mensagens por dia.',
+    name: 'Plano Básico',
+    price: 'Sem mensalidade',
+    description: 'Modelo pay-per-use para operar no essencial e adicionar créditos conforme uso.',
     features: [
-      'Ajuda na configuração inicial',
-      'Sistema de créditos para uso da IA',
-      'Até 2h de suporte por mês',
-      MARKETING_PRO_AI_CREDITS_TOKEN,
-      'Desconto para tráfego pago'
+      'Funcionalidades essenciais do painel (conforme plano básico ativo)',
+      'Sem custo fixo adicional',
+      'Consumo da IA por mensagem enviada: R$ 0,15',
+      'Recarga de créditos quando precisar'
     ],
     highlighted: true,
-    ctaLabel: 'Começar com teste grátis',
+    ctaLabel: 'Começar no Básico',
     ctaHref: '/login?mode=signup',
-    footnote: 'Assine o Pro dentro do painel.'
+    footnote: 'Ideal para começar com previsibilidade de custo por uso.'
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
-    price: 'Sob consulta',
-    description: 'Soluções personalizadas.',
+    name: 'Plano Enterprise',
+    price: 'R$ 300,00 / mês',
+    description: 'Para operações que precisam recursos avançados e menor custo por mensagem da IA.',
     features: [
-      'Peça melhorias no sistema',
-      'Integre ao seu ERP/CRM',
-      'Desconto nos créditos de IA',
-      'Suporte ilimitado'
+      'Lista de transmissão personalizada',
+      'Agenda integrada',
+      'Pagamento integrado',
+      'Consumo da IA por mensagem enviada: R$ 0,05'
     ],
     highlighted: false,
-    ctaLabel: 'Falar conosco',
+    ctaLabel: 'Falar sobre Enterprise',
     ctaHref: buildSalesWhatsAppLink(),
     ctaExternal: true,
-    footnote: 'Atendimento assistido via WhatsApp.'
+    footnote: 'Reduz o custo por mensagem e amplia capacidade operacional.'
+  },
+  {
+    id: 'trial',
+    name: 'Add-on Follow-up',
+    price: '+ R$ 100,00 / mês',
+    description: 'Funcionalidade opcional para follow-up automático em todos os clientes.',
+    features: [
+      'Follow-up para toda a base de clientes',
+      'Fluxo adicional mensal',
+      'Pode ser contratado junto ao Básico ou Enterprise'
+    ],
+    highlighted: false,
+    ctaLabel: 'Quero ativar Follow-up',
+    ctaHref: buildSalesWhatsAppLink(),
+    ctaExternal: true,
+    footnote: 'Opcional para quem quer acelerar reativações e recorrência.'
   }
 ]

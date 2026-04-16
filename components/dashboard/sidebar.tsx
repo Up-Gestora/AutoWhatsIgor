@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import { auth } from '@/lib/firebase'
+import { auth, clearLocalAuthSession, isLocalAuthBypassEnabled } from '@/lib/firebase'
 import { signOut } from 'firebase/auth'
 import { useHoverCapable } from '@/lib/hooks/useHoverCapable'
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery'
@@ -60,6 +60,7 @@ interface SidebarProps {
   isMobileOpen: boolean
   setIsMobileOpen: (value: boolean) => void
   isSubaccount?: boolean
+  planTier?: 'basic' | 'premium'
 }
 
 function isRouteActive(currentKey: RouteKey | null | undefined, itemKey: RouteKey): boolean {
@@ -80,7 +81,8 @@ export function Sidebar({
   setIsCollapsed,
   isMobileOpen,
   setIsMobileOpen,
-  isSubaccount = false
+  isSubaccount = false,
+  planTier = 'basic'
 }: SidebarProps) {
   const router = useRouter()
   const { route, t, toRoute } = useI18n()
@@ -91,10 +93,18 @@ export function Sidebar({
 
   const menuItems = useMemo(() => {
     if (!isSubaccount) {
-      return allMenuItems
+      if (planTier === 'premium') {
+        return allMenuItems
+      }
+      const basicVisibleRoutes = new Set<RouteKey>([
+        'dashboard_home',
+        'training',
+        'conversations'
+      ])
+      return allMenuItems.filter((item) => basicVisibleRoutes.has(item.routeKey))
     }
     return allMenuItems.filter((item) => item.routeKey === 'conversations')
-  }, [isSubaccount])
+  }, [isSubaccount, planTier])
 
   useEffect(() => {
     if (!autoHover || !isCollapsed) {
@@ -106,7 +116,16 @@ export function Sidebar({
   const developmentLabel = t('nav.inDevelopment', 'Em desenvolvimento')
 
   const handleLogout = async () => {
-    if (!auth) return
+    if (isLocalAuthBypassEnabled()) {
+      clearLocalAuthSession()
+      router.push(toRoute('login'))
+      return
+    }
+
+    if (!auth) {
+      router.push(toRoute('login'))
+      return
+    }
 
     try {
       await signOut(auth)
@@ -211,6 +230,7 @@ export function Sidebar({
               </a>
             )
           })}
+
 
           <div className="pt-2 mt-2 border-t border-surface-lighter space-y-2">
             <button

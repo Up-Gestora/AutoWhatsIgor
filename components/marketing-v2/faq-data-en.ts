@@ -1,26 +1,26 @@
 export const faqs = [
   {
-    q: 'How does WhatsApp automation with AI work?',
-    a: 'You connect WhatsApp, define rules, add business context and FAQs. The AI replies inside that scope and hands off to a human when necessary.'
+    q: 'How does the simplified AutoWhats version work?',
+    a: 'You connect WhatsApp, complete guided AI training, and start self-service automation right away. The goal is practical operation with less setup friction.'
   },
   {
-    q: 'Does it work with WhatsApp Business?',
-    a: 'Yes. The flow is designed for operations that use WhatsApp as a primary channel for support and sales, including WhatsApp Business scenarios.'
+    q: 'What is the difference between Basic and Enterprise plans?',
+    a: 'Basic is pay-per-use: no fixed monthly fee and BRL 0.15 per AI message sent. Enterprise is BRL 300/month, unlocks custom broadcasts, scheduling and integrated payments, and reduces AI cost to BRL 0.05 per message.'
   },
   {
-    q: 'Can I use AutoWhats as a CRM for WhatsApp?',
-    a: 'Yes. AutoWhats keeps leads, clients, status, notes, and next-contact steps inside the same support flow.'
+    q: 'How do credits and top-ups work?',
+    a: 'You top up credits whenever needed and AI usage is consumed from that balance. The top-up option remains available in the logged area under Subscription and credits.'
   },
   {
-    q: 'Can the AI schedule appointments through WhatsApp?',
-    a: 'Yes, when calendars and permissions are configured correctly. The AI can suggest times, check availability, and support appointment creation.'
+    q: 'How does the automatic FAQ plus human support flow work?',
+    a: 'The help button answers recurring questions first. If it does not solve your case, you can request personalized support or ask for team contact.'
   },
   {
-    q: 'How does the AI avoid wrong answers?',
-    a: 'You define behavior rules, limits, handoff logic, and business context. That keeps the AI inside scope and reduces guesswork.'
+    q: 'What reduces AI mistakes the most?',
+    a: 'Fill the core training fields: company name, service/product description, business hours, and response rules. This reduces off-context replies.'
   },
   {
-    q: 'How do subscription and credits work?',
-    a: 'The free trial helps you validate the flow. On Pro, you use a subscription and credits based on AI message volume and account operation.'
+    q: 'Can I start alone and request help only when needed?',
+    a: 'Yes. You can run on Basic and upgrade later to Enterprise. You can also add the follow-up add-on for all clients for BRL 100/month.'
   }
 ] as const

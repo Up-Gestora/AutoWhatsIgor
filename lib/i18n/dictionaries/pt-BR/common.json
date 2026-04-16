@@ -3,11 +3,11 @@
     "name": "AutoWhats"
   },
   "nav": {
-    "dashboard": "Dashboard",
+    "dashboard": "Página Principal",
     "connections": "Conexões",
     "conversations": "Conversas",
-    "training": "Treinamento IA",
-    "leads": "Leads",
+    "training": "Treinamento",
+    "leads": "Contatos",
     "clients": "Clientes",
     "broadcasts": "Transmissão",
     "calendar": "Agenda",
@@ -21,7 +21,9 @@
     "collapse": "Recolher Menu",
     "keepOpen": "Manter aberto",
     "inDevelopment": "Em desenvolvimento",
-    "subaccount": "Sub-conta"
+    "subaccount": "Sub-conta",
+    "basicPlanBadge": "Plano Básico ativo",
+    "basicPlanHint": "Plano Básico ativo: menu simplificado para operação essencial."
   },
   "topbar": {
     "search": "Buscar...",
@@ -30,16 +32,16 @@
     "noName": "Sem nome",
     "current": "Atual",
     "planLoading": "Plano ...",
-    "planPro": "Plano Pro",
-    "planFree": "Plano Free",
+    "planPro": "Plano Premium",
+    "planFree": "Plano Básico",
     "titles": {
-      "dashboard_home": "Visao Geral",
+      "dashboard_home": "Página Principal",
       "connections": "Minhas Conexões",
-      "training": "Treinamento de IA",
+      "training": "Treinamento",
       "onboarding_setup": "Onboarding Guiado",
       "training_copilot": "Treinar com IA",
       "conversations": "Histórico de Conversas",
-      "leads": "Gerenciamento de Leads",
+      "leads": "Gerenciamento de Contatos",
       "files": "Arquivos",
       "settings": "Configurações do Sistema",
       "tutorials": "Tutoriais",
@@ -107,7 +109,4 @@
     "english": "English"
   }
 }
-
-
-
 

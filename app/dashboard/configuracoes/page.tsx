@@ -8,6 +8,7 @@ import {
   Shield,
   Palette,
   Globe,
+  ChevronLeft,
   Save,
   Mail,
   Phone,
@@ -18,6 +19,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Switch } from '@/components/ui/switch'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/auth-provider'
 import { getUserProfile, updateUserProfile } from '@/lib/firebase'
@@ -59,6 +61,8 @@ export default function ConfiguracoesPage() {
   const tr = (pt: string, en: string) => (isEn ? en : pt)
 
   const [activeTab, setActiveTab] = useState<TabId>('perfil')
+  const [tabHistory, setTabHistory] = useState<TabId[]>([])
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('dark')
   const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [saveMessage, setSaveMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -89,6 +93,7 @@ export default function ConfiguracoesPage() {
       const tab = normalizedTab as TabId | null
       if (tab && tabs.some((item) => item.id === tab) && !disabledTabs.has(tab)) {
         setActiveTab(tab)
+        setTabHistory([])
       }
       const billing = params.get('billing')
       if (billing === 'success' || billing === 'cancel') {
@@ -100,6 +105,57 @@ export default function ConfiguracoesPage() {
       // ignore
     }
   }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const savedTheme = window.localStorage.getItem('autowhats.theme.mode')
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      setThemeMode(savedTheme)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    document.documentElement.setAttribute('data-theme', themeMode)
+    window.localStorage.setItem('autowhats.theme.mode', themeMode)
+  }, [themeMode])
+
+  const updateTabOnUrl = (tab: TabId) => {
+    try {
+      const url = new URL(window.location.href)
+      url.searchParams.set('tab', tab)
+      window.history.replaceState({}, '', url.toString())
+    } catch {
+      // ignore
+    }
+  }
+
+  const handleTabChange = (nextTab: TabId) => {
+    if (nextTab === activeTab || disabledTabs.has(nextTab)) {
+      return
+    }
+    setTabHistory((previous) => [...previous, activeTab])
+    setActiveTab(nextTab)
+    updateTabOnUrl(nextTab)
+  }
+
+  const handleBackToPreviousTab = () => {
+    if (tabHistory.length > 0) {
+      const previousTab = tabHistory[tabHistory.length - 1]
+      const nextHistory = tabHistory.slice(0, -1)
+      setTabHistory(nextHistory)
+      setActiveTab(previousTab)
+      updateTabOnUrl(previousTab)
+      return
+    }
+
+    setActiveTab('perfil')
+    updateTabOnUrl('perfil')
+  }
+
+  const activeTabMeta = tabs.find((tab) => tab.id === activeTab)
+  const activeTabTitle = activeTabMeta ? (isEn ? activeTabMeta.labelEn : activeTabMeta.labelPt) : tr('Configurações', 'Settings')
+  const isSubpageTab = activeTab !== 'perfil'
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -204,9 +260,23 @@ export default function ConfiguracoesPage() {
     <div className="animate-fade-in space-y-8">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-white md:text-3xl">{tr('Configurações', 'Settings')}</h1>
+          <h1 className="flex items-center gap-2 text-2xl font-bold text-white md:text-3xl">
+            {isSubpageTab ? (
+              <button
+                type="button"
+                onClick={handleBackToPreviousTab}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-none bg-transparent text-gray-400 transition hover:text-white"
+                aria-label={tr('Voltar para aba anterior', 'Go back to previous tab')}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+            ) : null}
+            <span>{isSubpageTab ? activeTabTitle : tr('Configurações', 'Settings')}</span>
+          </h1>
           <p className="text-gray-400">
-            {tr('Gerencie suas preferências e configurações da conta.', 'Manage your account preferences and settings.')}
+            {isSubpageTab
+              ? tr('Subpágina de configurações.', 'Settings subpage.')
+              : tr('Gerencie suas preferências e configurações da conta.', 'Manage your account preferences and settings.')}
           </p>
         </div>
         {activeTab === 'perfil' ? (
@@ -237,6 +307,28 @@ export default function ConfiguracoesPage() {
         )}
       </div>
 
+      <div className="rounded-2xl border border-surface-lighter bg-surface-light p-4">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-white">{tr('Tema do painel', 'Dashboard theme')}</p>
+            <p className="text-xs text-gray-400">
+              {themeMode === 'dark'
+                ? tr('Modo escuro ativo', 'Dark mode active')
+                : tr('Modo claro ativo', 'Light mode active')}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className={cn('text-xs', themeMode === 'light' ? 'text-white' : 'text-gray-500')}>{tr('Claro', 'Light')}</span>
+            <Switch
+              checked={themeMode === 'dark'}
+              onCheckedChange={(checked) => setThemeMode(checked ? 'dark' : 'light')}
+              aria-label={tr('Alternar entre modo claro e escuro', 'Toggle light and dark mode')}
+            />
+            <span className={cn('text-xs', themeMode === 'dark' ? 'text-white' : 'text-gray-500')}>{tr('Escuro', 'Dark')}</span>
+          </div>
+        </div>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-4">
         <div className="lg:col-span-1">
           <div className="rounded-2xl border border-surface-lighter bg-surface-light p-2">
@@ -246,7 +338,7 @@ export default function ConfiguracoesPage() {
                   key={tab.id}
                   onClick={() => {
                     if (!tab.disabled) {
-                      setActiveTab(tab.id)
+                      handleTabChange(tab.id)
                     }
                   }}
                   disabled={tab.disabled}
@@ -647,4 +739,3 @@ function NotificationToggle({ label, description, checked, onChange }: Notificat
     </div>
   )
 }
-

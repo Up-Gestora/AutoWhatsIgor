@@ -2,12 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AlertTriangle, CheckCircle2, CreditCard, ExternalLink, Loader2, RefreshCw, Wallet } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button, ButtonLink } from '@/components/ui/button'
 import { auth } from '@/lib/firebase'
 import { buildHttpErrorMessage, parseResponsePayload } from '@/lib/http-error'
 import { useI18n } from '@/lib/i18n/client'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/auth-provider'
+import { WHATSAPP_LINK } from '@/lib/contact'
 
 type CreditBalance = {
   balanceBrl: number
@@ -330,14 +331,6 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
     )
   }, [runCheckout, user?.email])
 
-  const handleSubscribeAnnual = useCallback(() => {
-    void runCheckout(
-      '/api/billing/subscription/checkout',
-      { plan: 'pro_annual', email: user?.email ?? null },
-      'subscribe_annual'
-    )
-  }, [runCheckout, user?.email])
-
   const handleSubscribeEnterprise = useCallback(() => {
     void runCheckout(
       '/api/billing/subscription/checkout',
@@ -361,6 +354,16 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
     [runCheckout, user?.email]
   )
 
+  const followUpAddOnHref = useMemo(
+    () =>
+      `${WHATSAPP_LINK}?text=${encodeURIComponent(
+        isEn
+          ? 'Hello! I want to activate the follow-up add-on for all clients (BRL 100/month).'
+          : 'Olá! Quero ativar o add-on de follow-up para todos os clientes (R$ 100/mês).'
+      )}`,
+    [isEn]
+  )
+
   const balance = data?.credits?.balanceBrl ?? 0
   const isBlocked = data?.credits ? balance <= 0 || Boolean(data.credits.blockedAt) : false
   const paymentMethod = data?.billing?.paymentMethod ?? null
@@ -369,13 +372,9 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
   const canBuyCredits = subscriptionStatus === 'active' || subscriptionStatus === 'trialing'
 
   const monthlyPlan = data?.plans?.pro_monthly ?? null
-  const annualPlan = data?.plans?.pro_annual ?? null
   const enterprisePlan = data?.plans?.enterprise_annual ?? null
   const monthlyPlanEnabled = monthlyPlan ? monthlyPlan.enabled && monthlyPlan.priceActive !== false : true
-  const annualPlanEnabled = annualPlan ? annualPlan.enabled && annualPlan.priceActive !== false : true
   const enterprisePlanEnabled = enterprisePlan ? enterprisePlan.enabled && enterprisePlan.priceActive !== false : true
-  const monthlyPriceLabel = monthlyPlanEnabled ? formatPlanPrice(monthlyPlan) ?? '--' : tr('Indisponivel', 'Unavailable')
-  const annualPriceLabel = annualPlanEnabled ? formatPlanPrice(annualPlan) ?? '--' : tr('Indisponivel', 'Unavailable')
   const enterprisePriceLabel = enterprisePlanEnabled ? formatPlanPrice(enterprisePlan) ?? '--' : tr('Indisponivel', 'Unavailable')
 
   return (
@@ -387,7 +386,7 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
             {tr('Assinatura e créditos', 'Subscription and credits')}
           </h2>
           <p className="text-sm text-gray-400">
-            {tr('Gerencie sua assinatura e recarregue créditos para usar a IA.', 'Manage your subscription and top up credits to use AI.')}
+            {tr('Modelo pay-per-use: mantenha seus créditos recarregados para usar a IA.', 'Pay-per-use model: keep your credits topped up to run AI.')}
           </p>
         </div>
 
@@ -455,6 +454,44 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
         </div>
       ) : null}
 
+      <div className="rounded-2xl border border-primary/20 bg-primary/10 p-4">
+        <p className="text-sm font-semibold text-primary">
+          {tr('Regras de plano e cobrança', 'Plan and billing rules')}
+        </p>
+        <div className="mt-3 overflow-x-auto rounded-xl border border-white/10 bg-surface/40">
+          <table className="min-w-full text-left text-xs">
+            <thead className="bg-surface/70 text-gray-300">
+              <tr>
+                <th className="px-3 py-2 font-semibold">{tr('Modelo', 'Model')}</th>
+                <th className="px-3 py-2 font-semibold">{tr('Mensalidade', 'Monthly fee')}</th>
+                <th className="px-3 py-2 font-semibold">{tr('Custo IA/mensagem', 'AI cost/message')}</th>
+                <th className="px-3 py-2 font-semibold">{tr('Recursos incluídos', 'Included features')}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10 text-gray-200">
+              <tr>
+                <td className="px-3 py-2 font-semibold text-white">{tr('Plano Básico', 'Basic')}</td>
+                <td className="px-3 py-2">{tr('Sem mensalidade fixa', 'No fixed monthly fee')}</td>
+                <td className="px-3 py-2">R$ 0,15</td>
+                <td className="px-3 py-2">{tr('Funcionalidades essenciais + recarga de créditos', 'Essential features + credit top-up')}</td>
+              </tr>
+              <tr>
+                <td className="px-3 py-2 font-semibold text-white">Enterprise</td>
+                <td className="px-3 py-2">R$ 300,00</td>
+                <td className="px-3 py-2">R$ 0,05</td>
+                <td className="px-3 py-2">{tr('Transmissão personalizada, agenda e pagamento integrados', 'Custom broadcasts, scheduling, and integrated payments')}</td>
+              </tr>
+              <tr>
+                <td className="px-3 py-2 font-semibold text-white">{tr('Add-on Follow-up', 'Follow-up add-on')}</td>
+                <td className="px-3 py-2">R$ 100,00</td>
+                <td className="px-3 py-2">-</td>
+                <td className="px-3 py-2">{tr('Follow-up para todos os clientes', 'Follow-up for all clients')}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-surface-light rounded-2xl border border-surface-lighter p-6 space-y-4">
           <div className="flex items-start justify-between gap-4">
@@ -486,15 +523,7 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
                 onClick={handleSubscribeMonthly}
                 disabled={!data?.stripeConfigured || actionLoading !== null || !canSubscribe || !monthlyPlanEnabled}
               >
-                {actionLoading === 'subscribe_monthly' ? <Loader2 className="w-4 h-4 animate-spin" /> : tr('Assinar mensal', 'Subscribe monthly')}
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleSubscribeAnnual}
-                disabled={!data?.stripeConfigured || actionLoading !== null || !canSubscribe || !annualPlanEnabled}
-              >
-                {actionLoading === 'subscribe_annual' ? <Loader2 className="w-4 h-4 animate-spin" /> : tr('Assinar anual', 'Subscribe yearly')}
+                {actionLoading === 'subscribe_monthly' ? <Loader2 className="w-4 h-4 animate-spin" /> : tr('Ativar Básico', 'Activate Basic')}
               </Button>
               <Button
                 type="button"
@@ -502,20 +531,40 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
                 onClick={handleSubscribeEnterprise}
                 disabled={!data?.stripeConfigured || actionLoading !== null || !canSubscribe || !enterprisePlanEnabled}
               >
-                {actionLoading === 'subscribe_enterprise' ? <Loader2 className="w-4 h-4 animate-spin" /> : tr('Assinar Enterprise', 'Subscribe Enterprise')}
+                {actionLoading === 'subscribe_enterprise' ? <Loader2 className="w-4 h-4 animate-spin" /> : tr('Ativar Enterprise', 'Activate Enterprise')}
               </Button>
+              <ButtonLink
+                href={followUpAddOnHref}
+                target="_blank"
+                rel="noreferrer noopener"
+                variant="outline"
+                className="h-11"
+              >
+                {tr('Ativar Follow-up', 'Activate Follow-up')}
+              </ButtonLink>
             </div>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-2 text-xs text-gray-400">
             <p>
-              {tr('Mensal', 'Monthly')}: <span className="text-white font-semibold">{monthlyPriceLabel}</span> / {tr('mes', 'month')}
+              {tr('Básico', 'Basic')}: <span className="text-white font-semibold">{tr('Pay-per-use', 'Pay-per-use')}</span>
             </p>
             <p>
-              {tr('Anual', 'Yearly')}: <span className="text-white font-semibold">{annualPriceLabel}</span> / {tr('ano', 'year')}
+              {tr('Custo IA no Básico', 'Basic AI cost')}: <span className="text-white font-semibold">R$ 0,15</span> {tr('por mensagem', 'per message')}
             </p>
             <p>
-              Enterprise: <span className="text-white font-semibold">{enterprisePriceLabel}</span> / {tr('ano', 'year')}
+              Enterprise: <span className="text-white font-semibold">{enterprisePriceLabel}</span> / {tr('mes', 'month')}
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-surface-lighter bg-surface p-4">
+            <p className="text-xs text-gray-500">{tr('Add-on Follow-up', 'Follow-up add-on')}</p>
+            <p className="text-sm text-white font-semibold mt-1">R$ 100,00 / {tr('mes', 'month')}</p>
+            <p className="text-xs text-gray-400 mt-1">
+              {tr(
+                'Ative para incluir follow-up automático em todos os clientes.',
+                'Enable to include automatic follow-up for all clients.'
+              )}
             </p>
           </div>
 
@@ -579,8 +628,8 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
           {!canBuyCredits ? (
             <p className="text-xs text-yellow-200/80">
               {tr(
-                'Para comprar créditos, você precisa de um Plano Pro ou Enterprise ativo. Use Assinar mensal, anual, Enterprise ou Gerenciar.',
-                'To buy credits, you need an active Pro or Enterprise plan. Use Subscribe monthly, yearly, Enterprise or Manage.'
+                'Para comprar créditos, você precisa de um plano ativo no Stripe. Use Ativar Básico, Ativar Enterprise ou Gerenciar.',
+                'To buy credits, you need an active Stripe plan. Use Activate Basic, Activate Enterprise, or Manage.'
               )}
             </p>
           ) : (
@@ -593,4 +642,3 @@ export function AssinaturaCreditosTab(props: { billingReturn?: 'success' | 'canc
     </div>
   )
 }
-

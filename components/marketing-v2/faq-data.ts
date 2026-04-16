@@ -1,26 +1,26 @@
 export const faqs = [
   {
-    q: 'Como funciona a automação de WhatsApp com IA?',
-    a: 'Você conecta o WhatsApp, configura regras, informações do negócio e FAQs. A IA responde dentro desse contexto e chama um humano quando o atendimento sair do escopo.'
+    q: 'Como funciona a versão mais simples do AutoWhats?',
+    a: 'Você conecta o WhatsApp, preenche o treinamento guiado e já começa no autoatendimento com IA. O foco é operação prática, sem depender de onboarding manual.'
   },
   {
-    q: 'Funciona com WhatsApp Business?',
-    a: 'Sim. O fluxo foi pensado para operações que usam o WhatsApp como canal principal de atendimento e vendas, incluindo cenários com WhatsApp Business.'
+    q: 'Qual a diferença entre Plano Básico e Plano Enterprise?',
+    a: 'O Plano Básico é pay-per-use: sem mensalidade fixa e custo de R$ 0,15 por mensagem enviada pela IA. O Enterprise custa R$ 300/mês, libera lista de transmissão personalizada, agenda e pagamento integrados, e reduz a IA para R$ 0,05 por mensagem.'
   },
   {
-    q: 'Posso usar o AutoWhats como CRM para WhatsApp?',
-    a: 'Sim. O AutoWhats organiza leads, clientes, status, observações e próximo contato no mesmo fluxo do atendimento.'
+    q: 'Como funcionam créditos e recarga?',
+    a: 'Você adiciona créditos sempre que precisar e o sistema consome conforme uso da IA. A opção de recarga fica disponível na área logada em Assinatura e créditos.'
   },
   {
-    q: 'A IA consegue fazer agendamentos pelo WhatsApp?',
-    a: 'Sim, quando a agenda e as permissões corretas estiverem configuradas. A IA pode sugerir horários, consultar disponibilidade e apoiar a criação de agendamentos.'
+    q: 'Como funciona o FAQ automático com atendimento humano?',
+    a: 'O botão de ajuda responde dúvidas recorrentes primeiro. Se não resolver, você pode solicitar atendimento personalizado ou pedir contato da equipe.'
   },
   {
-    q: 'Como a IA evita respostas erradas no atendimento?',
-    a: 'Você define regras de comportamento, limites, repasse para humano e contexto do negócio. Assim a IA evita inventar respostas e atua dentro do escopo configurado.'
+    q: 'O que mais evita erro na IA?',
+    a: 'Preencher bem os campos essenciais de treinamento: nome da empresa, descrição de serviços/produtos, horários e regras gerais de atendimento. Isso reduz respostas fora de contexto.'
   },
   {
-    q: 'Como funciona o custo com créditos e assinatura?',
-    a: 'O teste grátis permite validar o fluxo. No plano Pro, você usa assinatura e créditos conforme o volume de mensagens com IA e a operação da conta.'
+    q: 'Posso começar sozinho e pedir ajuda só quando precisar?',
+    a: 'Sim. Você pode operar no Básico e, se quiser escalar, migrar para o Enterprise. Também é possível contratar o add-on de follow-up para todos os clientes por R$ 100/mês.'
   }
 ] as const

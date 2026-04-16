@@ -11,12 +11,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useI18n } from '@/lib/i18n/client'
 import { buildLocalizedUrl, type RouteKey } from '@/lib/i18n/routes'
 import type { LocalePrefix } from '@/lib/i18n/locales'
-import { buildHttpErrorMessage, parseResponsePayload } from '@/lib/http-error'
 import { cn } from '@/lib/utils'
 
 interface TopbarProps {
   onMenuClick: () => void
   isSubaccount?: boolean
+  planTier?: 'basic' | 'premium'
+  planLoading?: boolean
 }
 
 const TITLE_KEYS_BY_ROUTE: Partial<Record<RouteKey, string>> = {
@@ -54,15 +55,18 @@ function formatUserName(fullName: string): string {
   return `${firstName} ${lastInitial}.`
 }
 
-export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
+export function Topbar({
+  onMenuClick,
+  isSubaccount = false,
+  planTier = 'basic',
+  planLoading = false
+}: TopbarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
-  const { route, t, locale, localePrefix } = useI18n()
+  const { route, t, localePrefix } = useI18n()
   const [userName, setUserName] = useState<string>('')
   const [isLoading, setIsLoading] = useState(true)
-  const [planLoading, setPlanLoading] = useState(true)
-  const [plan, setPlan] = useState<'free' | 'pro'>('free')
   const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
   const localeMenuRef = useRef<HTMLDivElement | null>(null)
 
@@ -73,6 +77,7 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
     }
     return t('nav.dashboard', 'Dashboard')
   }, [route?.key, t])
+  const showBasicPlanBadge = !isSubaccount && planTier === 'basic' && route?.key === 'dashboard_home'
 
   useEffect(() => {
     if (!user?.uid || !db) {
@@ -107,65 +112,6 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
 
     return () => unsubscribe()
   }, [user?.uid])
-
-  useEffect(() => {
-    if (isSubaccount) {
-      setPlan('free')
-      setPlanLoading(false)
-      return
-    }
-
-    if (!user?.uid) {
-      setPlan('free')
-      setPlanLoading(false)
-      return
-    }
-
-    let cancelled = false
-
-    const loadPlan = async () => {
-      setPlanLoading(true)
-      try {
-        const token = await user.getIdToken()
-        const response = await fetch('/api/billing/plan', {
-          headers: {
-            authorization: `Bearer ${token}`
-          },
-          cache: 'no-store'
-        })
-
-        const { payload, rawText } = await parseResponsePayload<{ plan?: string }>(response)
-        if (!response.ok) {
-          throw new Error(buildHttpErrorMessage(response.status, payload, rawText))
-        }
-
-        const value = payload?.plan === 'pro' ? 'pro' : 'free'
-        if (!cancelled) {
-          setPlan(value)
-        }
-      } catch {
-        if (!cancelled) {
-          setPlan('free')
-        }
-      } finally {
-        if (!cancelled) {
-          setPlanLoading(false)
-        }
-      }
-    }
-
-    const handleFocus = () => {
-      void loadPlan()
-    }
-
-    void loadPlan()
-    window.addEventListener('focus', handleFocus)
-
-    return () => {
-      cancelled = true
-      window.removeEventListener('focus', handleFocus)
-    }
-  }, [isSubaccount, user])
 
   const handleLocaleChange = async (nextPrefix: LocalePrefix) => {
     const nextLocale = nextPrefix === 'en' ? 'en' : 'pt-BR'
@@ -226,7 +172,14 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
         <button onClick={onMenuClick} className="p-2 text-gray-400 hover:text-white md:hidden">
           <Menu className="w-6 h-6" />
         </button>
-        <h2 className="hidden truncate text-xl font-semibold text-white sm:block">{title}</h2>
+        <div className="hidden min-w-0 items-center gap-2 sm:flex">
+          <h2 className="truncate text-xl font-semibold text-white">{title}</h2>
+          {showBasicPlanBadge ? (
+            <span className="shrink-0 rounded-md border border-primary/35 bg-primary/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
+              {t('nav.basicPlanBadge', 'Basic plan active')}
+            </span>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex shrink-0 items-center gap-2 md:gap-3">
@@ -353,7 +306,7 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
                   ? 'text-blue-300'
                   : planLoading
                     ? 'text-gray-400'
-                    : plan === 'pro'
+                    : planTier === 'premium'
                       ? 'text-primary'
                       : 'text-gray-400'
               }`}
@@ -362,7 +315,7 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
                 ? t('nav.subaccount', 'Sub-conta')
                 : planLoading
                   ? t('topbar.planLoading', 'Plano ...')
-                  : plan === 'pro'
+                  : planTier === 'premium'
                     ? t('topbar.planPro', 'Plano Pro')
                     : t('topbar.planFree', 'Plano Free')}
             </p>
@@ -375,4 +328,3 @@ export function Topbar({ onMenuClick, isSubaccount = false }: TopbarProps) {
     </header>
   )
 }
-

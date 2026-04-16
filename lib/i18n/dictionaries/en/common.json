@@ -3,11 +3,11 @@
     "name": "AutoWhats"
   },
   "nav": {
-    "dashboard": "Dashboard",
+    "dashboard": "Home",
     "connections": "Connections",
     "conversations": "Conversations",
-    "training": "AI Training",
-    "leads": "Leads",
+    "training": "Training",
+    "leads": "Contacts",
     "clients": "Clients",
     "broadcasts": "Broadcasts",
     "calendar": "Calendar",
@@ -21,7 +21,9 @@
     "collapse": "Collapse Menu",
     "keepOpen": "Keep open",
     "inDevelopment": "In development",
-    "subaccount": "Sub-account"
+    "subaccount": "Sub-account",
+    "basicPlanBadge": "Basic plan active",
+    "basicPlanHint": "Basic plan active: simplified menu for essential operations."
   },
   "topbar": {
     "search": "Search...",
@@ -30,16 +32,16 @@
     "noName": "No name",
     "current": "Current",
     "planLoading": "Plan ...",
-    "planPro": "Pro Plan",
-    "planFree": "Free Plan",
+    "planPro": "Premium Plan",
+    "planFree": "Basic Plan",
     "titles": {
-      "dashboard_home": "Overview",
+      "dashboard_home": "Home",
       "connections": "My Connections",
-      "training": "AI Training",
+      "training": "Training",
       "onboarding_setup": "Guided Onboarding",
       "training_copilot": "Train with AI",
       "conversations": "Conversation History",
-      "leads": "Lead Management",
+      "leads": "Contact Management",
       "files": "Files",
       "settings": "System Settings",
       "tutorials": "Tutorials",

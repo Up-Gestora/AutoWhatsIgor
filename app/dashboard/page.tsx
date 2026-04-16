@@ -14,6 +14,7 @@ import {
   Megaphone,
   MessageSquare,
   QrCode,
+  Settings,
   AlertTriangle,
   CheckCircle2,
   Loader2,
@@ -552,12 +553,21 @@ export default function DashboardPage() {
     [router, toRoute]
   )
 
+  const openSettings = useCallback(() => {
+    router.push(toRoute('settings'))
+  }, [router, toRoute])
+
+  const openConnections = useCallback(() => {
+    router.push(toRoute('connections'))
+  }, [router, toRoute])
+
   const openLeadsTable = useCallback(() => {
     router.push(toRoute('leads'))
   }, [router, toRoute])
 
   const greeting = userName ? (isEn ? `Hello, ${userName}!` : `Olá, ${userName}!`) : isEn ? 'Hello!' : 'Olá!'
   const isBlocked = credits ? credits.balanceBrl <= 0 || Boolean(credits.blockedAt) : false
+  const isWhatsappConnected = onboardingState?.milestones?.whatsapp_connected?.reached === true
 
   const formatPercent = useCallback((ratio: number | null | undefined) => {
     if (typeof ratio !== 'number' || !Number.isFinite(ratio)) {
@@ -721,6 +731,54 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-white">{greeting}</h1>
           <p className="text-gray-400">{tr('Aqui esta o que esta acontecendo com suas automacoes hoje.', 'Here is what is happening with your automations today.')}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-surface-lighter bg-surface-light p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Settings className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">{tr('Configurações', 'Settings')}</h2>
+              <p className="mt-1 text-sm text-gray-400">
+                {tr(
+                  'Acesse os ajustes da conta e conecte seu WhatsApp quando precisar.',
+                  'Access account settings and connect your WhatsApp whenever needed.'
+                )}
+              </p>
+              <div
+                className={cn(
+                  'mt-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold',
+                  isWhatsappConnected
+                    ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
+                    : 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300'
+                )}
+              >
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                {isWhatsappConnected ? tr('WhatsApp conectado', 'WhatsApp connected') : tr('WhatsApp pendente', 'WhatsApp pending')}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-surface-lighter bg-surface text-gray-200"
+              onClick={openSettings}
+            >
+              {tr('Abrir Configurações', 'Open Settings')}
+            </Button>
+            <Button
+              type="button"
+              className="bg-primary text-black hover:bg-primary/90"
+              onClick={openConnections}
+            >
+              {isWhatsappConnected ? tr('Gerenciar WhatsApp', 'Manage WhatsApp') : tr('Conectar WhatsApp', 'Connect WhatsApp')}
+            </Button>
+          </div>
         </div>
       </div>
 
